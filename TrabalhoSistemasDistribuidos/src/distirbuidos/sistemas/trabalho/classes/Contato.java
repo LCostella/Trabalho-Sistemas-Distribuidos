@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Leonardo e Felipe
+ * @author Leonardo
  */
 public class Contato {
 
