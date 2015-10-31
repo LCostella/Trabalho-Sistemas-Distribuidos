@@ -272,8 +272,7 @@ public class TelaInserirContato extends javax.swing.JFrame {
                     cidade.setNome(textCidade.getText());
                     cidade.setEstado(textEstado.getText());
                     InserirCidade ic = new InserirCidade();
-                    ic.setCidade(cidade);
-                    if(!ic.inserir()){
+                    if(!ic.inserir(cidade)){
                         JOptionPane.showMessageDialog(this, "Erro ao cadastrar cidade!");
                         return;
                     }
