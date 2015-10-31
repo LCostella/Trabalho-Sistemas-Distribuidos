@@ -168,15 +168,19 @@ public class TelaListarContato extends javax.swing.JFrame {
     }//GEN-LAST:event_textCidadeKeyReleased
 
     private void comboCidadePopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_comboCidadePopupMenuWillBecomeInvisible
-        Cidade cidade= (Cidade) comboCidade.getSelectedItem();
-        textCidade.setText(cidade.getNome());
-        dtm.setNumRows(0);
-        BuscarContato listaContatos = new BuscarContato();
-        List<Contato> contatos = listaContatos.listar(cidade);
-        for (Contato c : contatos) {
-            inserirItemTabela(c);
+        try {
+            Cidade cidade= (Cidade) comboCidade.getSelectedItem();
+            textCidade.setText(cidade.getNome());
+            dtm.setNumRows(0);
+            BuscarContato listaContatos = new BuscarContato();
+            List<Contato> contatos = listaContatos.listar(cidade);
+            for (Contato c : contatos) {
+                inserirItemTabela(c);
+            }
+            labelTotal.setText("Total: "+contatos.size());
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaListarContato.class.getName()).log(Level.SEVERE, null, ex);
         }
-        labelTotal.setText("Total: "+contatos.size());
     }//GEN-LAST:event_comboCidadePopupMenuWillBecomeInvisible
     private void inserirItemTabela(Contato c) {
         dtm.addRow(new Object[]{
