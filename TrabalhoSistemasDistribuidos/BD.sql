@@ -1,43 +1,22 @@
-CREATE TABLE cidade 
-(
-	
+﻿CREATE TABLE cidade (
 	codigo int PRIMARY KEY,
-
-	nome varchar(30) not null unique,
-
-	estado varchar(20)
-
+	nome varchar(100) not null,
+	estado varchar(100)
 );
-
-CREATE TABLE cep
-(
-
+CREATE TABLE cep(
 	cep int PRIMARY KEY,
-
 	codigocidade int not null,
-
 	FOREIGN KEY (codigocidade) REFERENCES cidade (codigo)
-
 );
 
-
-CREATE TABLE contato 
-(
-
+CREATE TABLE contato (
 	codigo int PRIMARY KEY,
-
-	nome varchar(30) not null,
-
-	email varchar(40) unique,
-
-	endereco varchar(50),
-
-	complemento varchar(40),
-
+	nome varchar(100) not null,
+	email varchar(50) unique,
+	endereco varchar(200),
+	complemento varchar(100),
 	cep int,
-
-	emailalternativo varchar(40),
-
+	emailalternativo varchar(50),
 	FOREIGN KEY (cep) REFERENCES cep (cep)
-
 );
+
