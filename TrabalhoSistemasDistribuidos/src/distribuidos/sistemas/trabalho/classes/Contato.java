@@ -3,9 +3,10 @@ package distribuidos.sistemas.trabalho.classes;
 import java.util.Objects;
 //Teste Johni
 /**
- *Teste Leonardo Costella
+ *
  * @author Leonardo
- * e Felipe
+ * Refatorado por Felipe
+ * 
  */
 public class Contato {
 
