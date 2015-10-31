@@ -19,18 +19,8 @@ import java.util.logging.Logger;
  * Refatorado por Felipe Lanzarin
  */
 public class InserirCidade {
-    Cidade cidade;
-
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
-    }
     
-    
-    public boolean inserir(){
+    public boolean inserir(Cidade cidade){
         try {
             String sql = "insert into cidade values (?,?,?)";
             PreparedStatement pst = Conexao.getPreparedStatement(sql);
