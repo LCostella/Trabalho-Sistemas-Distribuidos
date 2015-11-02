@@ -82,7 +82,7 @@ public class TelaInserirContato extends javax.swing.JFrame {
         textEstado = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        textCep = new javax.swing.JFormattedTextField();
+        textCep = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -125,11 +125,6 @@ public class TelaInserirContato extends javax.swing.JFrame {
 
         jLabel8.setText("CEP:");
 
-        try {
-            textCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
         textCep.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textCepKeyReleased(evt);
@@ -316,14 +311,22 @@ public class TelaInserirContato extends javax.swing.JFrame {
 
     private void textCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCepKeyReleased
         String campoCep = textCep.getText().trim();
+        if(campoCep.isEmpty()){
+            return;
+        }
+        Integer c = verificarDigitos(campoCep); 
+        if(c == null){
+            textCep.setText("");
+            return;
+        }
         if(campoCep.length()<7){
             return;
         }
         BuscarCep lc = new BuscarCep();
         try {
-            
-            cep = lc.buscarCep(Integer.parseInt(campoCep));
-           
+
+            cep = lc.buscarCep(c);
+
             if(cep!=null){
                 textCidade.setEditable(false);
                 textEstado.setEditable(false);
@@ -335,8 +338,8 @@ public class TelaInserirContato extends javax.swing.JFrame {
                 textEstado.setEditable(true);
             }
         }catch (SQLException ex) {
-             cep = null;
-             cidade = null;
+            cep = null;
+            cidade = null;
         }
     }//GEN-LAST:event_textCepKeyReleased
 
@@ -354,6 +357,17 @@ public class TelaInserirContato extends javax.swing.JFrame {
         textCidade.setEditable(true);
         textEstado.setEditable(true);
     }
+    
+    private Integer verificarDigitos(String texto){
+        Integer c = null ;
+        try {
+            c = Integer.parseInt(texto);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Digite apenas números!");
+            return null;
+        }
+        return c;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
     private javax.swing.JButton jButton1;
@@ -366,7 +380,7 @@ public class TelaInserirContato extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JFormattedTextField textCep;
+    private javax.swing.JTextField textCep;
     private javax.swing.JTextField textCidade;
     private javax.swing.JTextField textComplemento;
     private javax.swing.JTextField textEmail;

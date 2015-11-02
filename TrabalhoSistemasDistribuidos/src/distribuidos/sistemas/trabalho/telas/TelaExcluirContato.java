@@ -33,7 +33,7 @@ public class TelaExcluirContato extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        CodigoText = new javax.swing.JTextField();
+        codigoText = new javax.swing.JTextField();
         TextCod = new javax.swing.JLabel();
         ExcluirButton = new javax.swing.JButton();
         CancelarButton = new javax.swing.JButton();
@@ -70,7 +70,7 @@ public class TelaExcluirContato extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CodigoText)
+                            .addComponent(codigoText)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(TextCod, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -94,7 +94,7 @@ public class TelaExcluirContato extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(TextCod, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CodigoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(codigoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ExcluirButton)
@@ -108,15 +108,21 @@ public class TelaExcluirContato extends javax.swing.JFrame {
 
     private void ExcluirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirButtonActionPerformed
         // TODO add your handling code here:
-        contato = new Contato();
-        contato.setCodigo(Integer.parseInt(CodigoText.getText()));
-        if(CodigoText.getText().isEmpty()){
-                JOptionPane.showMessageDialog(this, "Campo Cógigo é obrigatório!");
+        if(codigoText.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Campo Código é obrigatório!");
                 return;
         }  
+        Integer codigo = verificarDigitos(codigoText.getText());
+        if(codigo == null){
+            codigoText.setText("");
+            return;
+        }
+        contato = new Contato();
+        contato.setCodigo(codigo);
+       
         BuscarContato lc = new BuscarContato();
         try {
-            contato = lc.buscarContato(CodigoText.getText());
+            contato = lc.buscarContato(codigo);
             
             if(contato!=null)
             {
@@ -144,7 +150,17 @@ public class TelaExcluirContato extends javax.swing.JFrame {
             Logger.getLogger(TelaExcluirContato.class.getName()).log(Level.SEVERE, null, ex);           
         }       
     }//GEN-LAST:event_ExcluirButtonActionPerformed
-
+    
+    private Integer verificarDigitos(String texto){
+        Integer c = null ;
+        try {
+            c = Integer.parseInt(texto);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Digite apenas números!");
+            return null;
+        }
+        return c;
+    }
     private void CancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarButtonActionPerformed
         // TODO add your handling code here:
         dispose();
@@ -153,9 +169,9 @@ public class TelaExcluirContato extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelarButton;
-    private javax.swing.JTextField CodigoText;
     private javax.swing.JButton ExcluirButton;
     private javax.swing.JLabel Remov;
     private javax.swing.JLabel TextCod;
+    private javax.swing.JTextField codigoText;
     // End of variables declaration//GEN-END:variables
 }

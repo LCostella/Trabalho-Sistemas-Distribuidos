@@ -34,16 +34,17 @@ public class BuscarCidade {
     
     public Cidade buscarCidade(int codigo) throws SQLException{
         Cidade c = null;
-        String sql = "SELECT * FROM cidade where codigo = "+codigo;
-        Statement st = Conexao.getStatement();
-        ResultSet rs = st.executeQuery(sql);
+        String sql = "SELECT * FROM cidade where codigo = ?";
+        PreparedStatement pst = Conexao.getPreparedStatement(sql);
+        pst.setInt(1, codigo);
+        ResultSet rs = pst.executeQuery();
         if(rs.next()){
             c = new Cidade();
             c.setCodigo(rs.getInt("codigo"));
             c.setNome(rs.getString("nome"));
             c.setEstado(rs.getString("estado"));  
         }
-        st.close();
+        pst.close();
         Conexao.close();
         return c;
     }

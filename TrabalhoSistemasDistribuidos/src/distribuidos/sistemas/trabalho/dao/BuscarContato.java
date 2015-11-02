@@ -2,9 +2,9 @@ package distribuidos.sistemas.trabalho.dao;
 
 import distribuidos.sistemas.trabalho.classes.Cidade;
 import distribuidos.sistemas.trabalho.classes.Contato;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,10 +26,11 @@ public class BuscarContato {
 
         String sql = "select contato.codigo, contato.nome, contato.email " +
                     "from contato, cep " +
-                    "where cep.codigocidade = " + cidade.getCodigo() +
+                    "where cep.codigocidade = ?" +
                     " and contato.cep = cep.cep;";
-        Statement st = Conexao.getStatement();
-        ResultSet rs = st.executeQuery(sql);
+        PreparedStatement pst = Conexao.getPreparedStatement(sql);
+        pst.setInt(1, cidade.getCodigo());
+        ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             Contato c = new Contato();
             c.setCodigo(rs.getInt("codigo"));
@@ -37,22 +38,23 @@ public class BuscarContato {
             c.setEmail(rs.getString("email"));
             contatos.add(c);
         }
-        st.close();
+        pst.close();
         Conexao.close();
         return contatos;
     }
     
     
-    public Contato buscarContato(String codigo) throws SQLException{
+    public Contato buscarContato(int codigo) throws SQLException{
         Contato c = null;
-        String sql = "SELECT * FROM contato where codigo = "+codigo;
-        Statement st = Conexao.getStatement();
-        ResultSet rs = st.executeQuery(sql);
+        String sql = "SELECT * FROM contato where codigo = ?";
+        PreparedStatement pst = Conexao.getPreparedStatement(sql);
+        pst.setInt(1, codigo);
+        ResultSet rs = pst.executeQuery();
         if(rs.next()){
             map = new HashMap<>();
             c = montarContato(rs);  
         }
-        st.close();
+        pst.close();
         Conexao.close();
         BuscarCep bc = new BuscarCep();
         if (c!=null){
@@ -61,20 +63,21 @@ public class BuscarContato {
         return c;
     }
 
-    public List<Contato> listar(Contato nome) throws SQLException {
+    public List<Contato> listar(int codigo) throws SQLException {
         List<Contato> contatos = new ArrayList<>();
 
         String sql = "select * " +
                     "from contato " +
-                    "where contato.codigo = " + nome ;
+                    "where contato.codigo = ?";
         
-        Statement st = Conexao.getStatement();
-        ResultSet rs = st.executeQuery(sql);
+        PreparedStatement pst = Conexao.getPreparedStatement(sql);
+        pst.setInt(1, codigo);
+        ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             map = new HashMap<>();
             contatos.add(montarContato(rs));
         }
-        st.close();
+        pst.close();
         Conexao.close();
         BuscarCep bc = new BuscarCep();
         for(Contato c : contatos){

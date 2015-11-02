@@ -44,7 +44,7 @@ public class TelaConsultarContato extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        campocodigo = new javax.swing.JTextField();
+        campoCodigo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnbuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -53,9 +53,9 @@ public class TelaConsultarContato extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        campocodigo.addActionListener(new java.awt.event.ActionListener() {
+        campoCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campocodigoActionPerformed(evt);
+                campoCodigoActionPerformed(evt);
             }
         });
 
@@ -94,7 +94,7 @@ public class TelaConsultarContato extends javax.swing.JFrame {
                         .addGap(344, 344, 344)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campocodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41)
                         .addComponent(btnbuscar)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -111,7 +111,7 @@ public class TelaConsultarContato extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campocodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(btnbuscar))
                 .addGap(47, 47, 47)
@@ -122,17 +122,22 @@ public class TelaConsultarContato extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campocodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campocodigoActionPerformed
+    private void campoCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCodigoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campocodigoActionPerformed
+    }//GEN-LAST:event_campoCodigoActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         // TODO add your handling code here:
+        Integer codigo = verificarDigitos(campoCodigo.getText());
+        if(codigo == null){
+            campoCodigo.setText("");
+            return;
+        }
         attTabela();
         BuscarContato bc = new BuscarContato();
         contato = null;
         try {
-            contato = bc.buscarContato(campocodigo.getText());
+            contato = bc.buscarContato(codigo);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Erro: "+
                 ex.getLocalizedMessage());
@@ -159,11 +164,20 @@ public class TelaConsultarContato extends javax.swing.JFrame {
         */
 
     }//GEN-LAST:event_btnbuscarActionPerformed
-
+    private Integer verificarDigitos(String texto){
+        Integer c = null ;
+        try {
+            c = Integer.parseInt(texto);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Digite apenas números!");
+            return null;
+        }
+        return c;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbuscar;
-    private javax.swing.JTextField campocodigo;
+    private javax.swing.JTextField campoCodigo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

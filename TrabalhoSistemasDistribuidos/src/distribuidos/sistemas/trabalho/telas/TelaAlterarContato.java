@@ -83,11 +83,11 @@ public class TelaAlterarContato extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         Cancelar = new javax.swing.JButton();
-        textCep = new javax.swing.JFormattedTextField();
         textCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         buscar = new javax.swing.JButton();
+        textCep = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -130,17 +130,6 @@ public class TelaAlterarContato extends javax.swing.JFrame {
             }
         });
 
-        try {
-            textCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        textCep.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                textCepKeyReleased(evt);
-            }
-        });
-
         textCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textCodigoActionPerformed(evt);
@@ -155,6 +144,12 @@ public class TelaAlterarContato extends javax.swing.JFrame {
         buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscarActionPerformed(evt);
+            }
+        });
+
+        textCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textCepKeyReleased(evt);
             }
         });
 
@@ -226,9 +221,13 @@ public class TelaAlterarContato extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25)
-                        .addComponent(jLabel4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -243,11 +242,7 @@ public class TelaAlterarContato extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
+                        .addGap(92, 92, 92)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -355,15 +350,56 @@ public class TelaAlterarContato extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_CancelarActionPerformed
 
+    private void textCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textCodigoActionPerformed
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        Integer codigo = verificarDigitos(textCodigo.getText());
+        if(codigo == null){
+            textCodigo.setText("");
+            return;
+        }
+        BuscarContato bc = new BuscarContato();
+        contato = null;
+        try {
+            contato = bc.buscarContato(codigo);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Deu erro. "+
+                ex.getLocalizedMessage());
+        }
+
+        if (contato != null) {
+            textNome.setText(contato.getNome());
+            textCep.setText(contato.getCep().getCep()+"");
+            textComplemento.setText(contato.getComplemento());
+            textEmail.setText(contato.getEmail());
+            textEmailAlt.setText(contato.getEmailAlternativo());
+            textEndereco.setText(contato.getEndereco());
+            textCidade.setText(contato.getCep().getCidade().getNome());
+            textEstado.setText(contato.getCep().getCidade().getEstado());
+        } else {
+            JOptionPane.showMessageDialog(this, "Código Não encontrado");
+        }
+    }//GEN-LAST:event_buscarActionPerformed
+
     private void textCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCepKeyReleased
         String campoCep = textCep.getText().trim();
+        if(campoCep.isEmpty()){
+            return;
+        }
+        Integer c = verificarDigitos(campoCep); 
+        if(c == null){
+            textCep.setText("");
+            return;
+        }
         if(campoCep.length()<7){
             return;
         }
         BuscarCep lc = new BuscarCep();
         try {
 
-            cep = lc.buscarCep(Integer.parseInt(campoCep));
+            cep = lc.buscarCep(c);
 
             if(cep!=null){
                 textCidade.setEditable(false);
@@ -381,35 +417,6 @@ public class TelaAlterarContato extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_textCepKeyReleased
 
-    private void textCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textCodigoActionPerformed
-
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-
-        BuscarContato bc = new BuscarContato();
-        contato = null;
-        try {
-            contato = bc.buscarContato(textCodigo.getText());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Deu erro. "+
-                ex.getLocalizedMessage());
-        }
-
-        if (contato != null) {
-            textNome.setText(contato.getNome());
-            textCep.setText(contato.getCep().getCep()+"");
-            textComplemento.setText(contato.getComplemento());
-            textEmail.setText(contato.getEmail());
-            textEmailAlt.setText(contato.getEmailAlternativo());
-            textEndereco.setText(contato.getEndereco());
-            textCidade.setText(contato.getCep().getCidade().getNome());
-            textEstado.setText(contato.getCep().getCidade().getEstado());
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Código Não encontrado");
-        }
-    }//GEN-LAST:event_buscarActionPerformed
-
     private void limparCampos(){
         textCep.setText("");
         textCidade.setText("");
@@ -422,6 +429,16 @@ public class TelaAlterarContato extends javax.swing.JFrame {
         textCep.setEditable(true);
         textCidade.setEditable(true);
         textEstado.setEditable(true);
+    }
+    private Integer verificarDigitos(String texto){
+        Integer c = null ;
+        try {
+            c = Integer.parseInt(texto);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Digite apenas números!");
+            return null;
+        }
+        return c;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
@@ -438,7 +455,7 @@ public class TelaAlterarContato extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JFormattedTextField textCep;
+    private javax.swing.JTextField textCep;
     private javax.swing.JTextField textCidade;
     private javax.swing.JTextField textCodigo;
     private javax.swing.JTextField textComplemento;
@@ -448,4 +465,5 @@ public class TelaAlterarContato extends javax.swing.JFrame {
     private javax.swing.JTextField textEstado;
     private javax.swing.JTextField textNome;
     // End of variables declaration//GEN-END:variables
+    
 }
