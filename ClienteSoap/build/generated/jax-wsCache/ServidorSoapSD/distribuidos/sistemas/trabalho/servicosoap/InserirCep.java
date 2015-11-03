@@ -3,21 +3,20 @@ package distribuidos.sistemas.trabalho.servicosoap;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java de excluirResponse complex type.
+ * <p>Classe Java de inserirCep complex type.
  * 
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="excluirResponse">
+ * &lt;complexType name="inserirCep">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="cep" type="{http://servicoSoap.trabalho.sistemas.distribuidos/}cep" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,28 +26,35 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "excluirResponse", propOrder = {
-    "_return"
+@XmlType(name = "inserirCep", propOrder = {
+    "cep"
 })
-public class ExcluirResponse {
+public class InserirCep {
 
-    @XmlElement(name = "return")
-    protected boolean _return;
+    protected Cep cep;
 
     /**
-     * Obtém o valor da propriedade return.
+     * Obtém o valor da propriedade cep.
      * 
+     * @return
+     *     possible object is
+     *     {@link Cep }
+     *     
      */
-    public boolean isReturn() {
-        return _return;
+    public Cep getCep() {
+        return cep;
     }
 
     /**
-     * Define o valor da propriedade return.
+     * Define o valor da propriedade cep.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Cep }
+     *     
      */
-    public void setReturn(boolean value) {
-        this._return = value;
+    public void setCep(Cep value) {
+        this.cep = value;
     }
 
 }

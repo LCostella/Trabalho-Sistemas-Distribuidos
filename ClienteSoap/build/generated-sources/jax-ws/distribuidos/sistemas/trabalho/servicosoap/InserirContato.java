@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java de inserir complex type.
+ * <p>Classe Java de inserirContato complex type.
  * 
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="inserir">
+ * &lt;complexType name="inserirContato">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -26,10 +26,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "inserir", propOrder = {
+@XmlType(name = "inserirContato", propOrder = {
     "contato"
 })
-public class Inserir {
+public class InserirContato {
 
     protected Contato contato;
 

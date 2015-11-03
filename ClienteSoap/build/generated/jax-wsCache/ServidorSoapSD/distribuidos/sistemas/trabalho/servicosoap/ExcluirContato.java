@@ -3,21 +3,20 @@ package distribuidos.sistemas.trabalho.servicosoap;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java de inserirResponse complex type.
+ * <p>Classe Java de excluirContato complex type.
  * 
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="inserirResponse">
+ * &lt;complexType name="excluirContato">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="codigo" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,28 +26,27 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "inserirResponse", propOrder = {
-    "_return"
+@XmlType(name = "excluirContato", propOrder = {
+    "codigo"
 })
-public class InserirResponse {
+public class ExcluirContato {
 
-    @XmlElement(name = "return")
-    protected boolean _return;
+    protected int codigo;
 
     /**
-     * Obtém o valor da propriedade return.
+     * Obtém o valor da propriedade codigo.
      * 
      */
-    public boolean isReturn() {
-        return _return;
+    public int getCodigo() {
+        return codigo;
     }
 
     /**
-     * Define o valor da propriedade return.
+     * Define o valor da propriedade codigo.
      * 
      */
-    public void setReturn(boolean value) {
-        this._return = value;
+    public void setCodigo(int value) {
+        this.codigo = value;
     }
 
 }

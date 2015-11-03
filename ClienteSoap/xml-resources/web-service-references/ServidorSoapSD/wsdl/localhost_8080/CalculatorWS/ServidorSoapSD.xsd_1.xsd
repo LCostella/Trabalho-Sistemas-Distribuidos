@@ -80,6 +80,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="inserirCidade">
+<xs:sequence>
+<xs:element name="cidade" type="tns:cidade" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="inserirCidadeResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="buscarCidade">
 <xs:sequence>
 <xs:element name="nome" type="xs:string" minOccurs="0"/>
@@ -93,13 +105,13 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="inserirCidade">
+<xs:complexType name="excluirContato">
 <xs:sequence>
-<xs:element name="cidade" type="tns:cidade" minOccurs="0"/>
+<xs:element name="codigo" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="inserirCidadeResponse">
+<xs:complexType name="excluirContatoResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
@@ -114,18 +126,6 @@
 <xs:complexType name="buscarContatoResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:contato" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="excluirContato">
-<xs:sequence>
-<xs:element name="codigo" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="excluirContatoResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
