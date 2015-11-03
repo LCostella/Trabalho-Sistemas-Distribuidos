@@ -1,15 +1,14 @@
 package distribuidos.sistemas.trabalho.clienteSoap.telas;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import distribuidos.sistemas.trabalho.clienteSoap.BuscarCep;
+import distribuidos.sistemas.trabalho.clienteSoap.BuscarCidade;
+import distribuidos.sistemas.trabalho.clienteSoap.InserirCep;
+import distribuidos.sistemas.trabalho.clienteSoap.InserirCidade;
+import distribuidos.sistemas.trabalho.clienteSoap.InserirContato;
 import distribuidos.sistemas.trabalho.servicosoap.Cep;
 import distribuidos.sistemas.trabalho.servicosoap.Cidade;
 import distribuidos.sistemas.trabalho.servicosoap.Contato;
 
-import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -82,7 +81,7 @@ public class TelaInserirContato  extends javax.swing.JFrame{
         textEstado = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        textCep = new javax.swing.JFormattedTextField();
+        textCep = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -125,16 +124,6 @@ public class TelaInserirContato  extends javax.swing.JFrame{
 
         jLabel8.setText("CEP:");
 
-        try {
-            textCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        textCep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCepActionPerformed(evt);
-            }
-        });
         textCep.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textCepKeyReleased(evt);
@@ -231,8 +220,11 @@ public class TelaInserirContato  extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        contato = new Contato();
-        if(contato.getNome().trim().isEmpty()){
+
+            contato = new Contato();
+            //.trim() retira os digitos em brancos para testar se o user não digitou somente espaços
+            contato.setNome(textNome.getText());
+            if(contato.getNome().trim().isEmpty()){
                 JOptionPane.showMessageDialog(this, "Campo nome é obrigatório!");
                 return;
             }
@@ -246,21 +238,61 @@ public class TelaInserirContato  extends javax.swing.JFrame{
             if(c.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Campo cep é obrigatório!");
                 return;
-            }           
-                
-             contato.setEmailAlternativo(textEmailAlt.getText());
-             contato.setEndereco(textEndereco.getText());
-             contato.setComplemento(textComplemento.getText());
-             //Buscar o CEP
-              BuscarCep buscarCep = new BuscarCep();
-              cep = buscarCep.buscar(Integer.parseInt(textCep.getText()));
-               
-          
+            }
+            //seta as propriedades
+            contato.setEmailAlternativo(textEmailAlt.getText());
+            contato.setEndereco(textEndereco.getText());
+            contato.setComplemento(textComplemento.getText());
             
-        ///Apartir daqui tem que testar se o cep é null e ai fazer a inserção de um cep cidade e etc,
-              
-        
-        
+            //busca cep
+            BuscarCep bc = new BuscarCep();
+            cep = bc.buscar(Integer.parseInt(textCep.getText().trim()));
+            if(cep== null){
+                //se nao encontrou o cep busca a cidade
+                if(textCidade.getText().trim().isEmpty()){
+                    JOptionPane.showMessageDialog(this, "Campo cidae é obrigatório!");
+                    return;
+                }
+                if(textEstado.getText().trim().isEmpty()){
+                    JOptionPane.showMessageDialog(this, "Campo estado é obrigatório!");
+                    return;
+                }
+                //busca a cidade pelo nome estado
+                BuscarCidade buscarCidde = new BuscarCidade();
+                cidade = buscarCidde.buscar(textCidade.getText(),textEstado.getText());
+                if(cidade == null){
+                    //se nao encontrou cria uma nova
+                    cidade = new Cidade();
+                    cidade.setNome(textCidade.getText());
+                    cidade.setEstado(textEstado.getText());
+                    InserirCidade ic = new InserirCidade();
+                    if(!ic.inserir(cidade)){
+                        JOptionPane.showMessageDialog(this, "Erro ao cadastrar cidade!");
+                        return;
+                    }
+                }
+                //cria novo cep e adiciona a cidade
+                cep = new Cep();
+                cep.setCep(Integer.parseInt(textCep.getText().trim()));
+                cep.setCidade(cidade);
+                InserirCep inserirCep = new InserirCep();
+                if(!inserirCep.inserir(cep)){
+                    JOptionPane.showMessageDialog(this, "Erro ao cadastrar cep!");
+                    return;
+                }
+            }
+            //adiciona o cep do contato
+            contato.setCep(cep);
+            //insere o contato
+            InserirContato ic = new InserirContato();
+            if(ic.inserir(contato)){
+                JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
+                limparCampos();
+                cep = null;
+                cidade = null;
+            }else{
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar");
+            }        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -273,29 +305,34 @@ public class TelaInserirContato  extends javax.swing.JFrame{
     }//GEN-LAST:event_textCidadeKeyReleased
 
     private void textCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCepKeyReleased
-        
         String campoCep = textCep.getText().trim();
-       if(campoCep.length()<7){
+        if(campoCep.isEmpty()){
             return;
         }
-        BuscarCep buscarCep = new BuscarCep();
-        cep = buscarCep.buscar(Integer.parseInt(campoCep));            
-                
-         if(cep!=null){
+        Integer c = verificarDigitos(campoCep); 
+        if(c == null){
+            textCep.setText("");
+            return;
+        }
+        if(campoCep.length()<7){
+            return;
+        }
+        BuscarCep lc = new BuscarCep();
+        
+        cep = lc.buscar(c);
+
+        if(cep!=null){
             textCidade.setEditable(false);
             textEstado.setEditable(false);
-             textCidade.setText(cep.getCidade().getNome());
-             textEstado.setText(cep.getCidade().getEstado());
-             cidade = cep.getCidade();
-         }else{
-             textCidade.setEditable(true);
-             textEstado.setEditable(true);
-         }
+            textCidade.setText(cep.getCidade().getNome());
+            textEstado.setText(cep.getCidade().getEstado());
+            cidade = cep.getCidade();
+        }else{
+            textCidade.setEditable(true);
+            textEstado.setEditable(true);
+            cidade = null;
+        }
     }//GEN-LAST:event_textCepKeyReleased
-
-    private void textCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCepActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textCepActionPerformed
 
 
     private void limparCampos(){
@@ -311,6 +348,16 @@ public class TelaInserirContato  extends javax.swing.JFrame{
         textCidade.setEditable(true);
         textEstado.setEditable(true);
     }
+     private Integer verificarDigitos(String texto){
+        Integer c = null ;
+        try {
+            c = Integer.parseInt(texto);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Digite apenas números!");
+            return null;
+        }
+        return c;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
     private javax.swing.JButton jButton1;
@@ -323,7 +370,7 @@ public class TelaInserirContato  extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JFormattedTextField textCep;
+    private javax.swing.JTextField textCep;
     private javax.swing.JTextField textCidade;
     private javax.swing.JTextField textComplemento;
     private javax.swing.JTextField textEmail;

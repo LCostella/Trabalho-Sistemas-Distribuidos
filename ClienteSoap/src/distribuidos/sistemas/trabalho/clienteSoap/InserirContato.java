@@ -9,17 +9,17 @@ import distribuidos.sistemas.trabalho.servicosoap.Contato;
 
 /**
  *
- * @author Leonardo
+ * @author felip
  */
-public class ExcluirContato {
-    public boolean excluirContato(int codigo){
-        return excluir(codigo);       
+public class InserirContato {
+    public boolean inserir(Contato contato){
+        return inserirContato(contato);
     }
 
-    private static boolean excluir(int codigo) {
+    private static boolean inserirContato(distribuidos.sistemas.trabalho.servicosoap.Contato contato) {
         distribuidos.sistemas.trabalho.servicosoap.CalculatorWS service = new distribuidos.sistemas.trabalho.servicosoap.CalculatorWS();
         distribuidos.sistemas.trabalho.servicosoap.ServidorSoapSD port = service.getServidorSoapSDPort();
-        return port.excluirContato(codigo);
+        return port.inserirContato(contato);
     }
-            
+    
 }

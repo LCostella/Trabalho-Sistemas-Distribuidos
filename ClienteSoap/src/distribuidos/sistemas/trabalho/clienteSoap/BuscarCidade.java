@@ -5,21 +5,23 @@
  */
 package distribuidos.sistemas.trabalho.clienteSoap;
 
-import distribuidos.sistemas.trabalho.servicosoap.Contato;
+import distribuidos.sistemas.trabalho.servicosoap.Cidade;
 
 /**
  *
- * @author Leonardo
+ * @author felip
  */
-public class ExcluirContato {
-    public boolean excluirContato(int codigo){
-        return excluir(codigo);       
+public class BuscarCidade {
+    public Cidade buscar(String nome, String estado){
+        return buscarCidade(nome, estado);
     }
 
-    private static boolean excluir(int codigo) {
+    private static Cidade buscarCidade(java.lang.String nome, java.lang.String estado) {
         distribuidos.sistemas.trabalho.servicosoap.CalculatorWS service = new distribuidos.sistemas.trabalho.servicosoap.CalculatorWS();
         distribuidos.sistemas.trabalho.servicosoap.ServidorSoapSD port = service.getServidorSoapSDPort();
-        return port.excluirContato(codigo);
+        return port.buscarCidade(nome, estado);
     }
-            
+
+
+    
 }

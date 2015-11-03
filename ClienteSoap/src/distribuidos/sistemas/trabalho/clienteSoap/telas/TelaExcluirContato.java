@@ -166,16 +166,4 @@ public class TelaExcluirContato extends javax.swing.JFrame {
     private javax.swing.JLabel Remov;
     private javax.swing.JLabel TextCod;
     // End of variables declaration//GEN-END:variables
-
-    private static boolean excluir(int codigo) {
-        distribuidos.sistemas.trabalho.servicosoap.CalculatorWS service = new distribuidos.sistemas.trabalho.servicosoap.CalculatorWS();
-        distribuidos.sistemas.trabalho.servicosoap.ServidorSoapSD port = service.getServidorSoapSDPort();
-        return port.excluir(codigo);
-    }
-
-    private static boolean excluir_1(int codigo) {
-        distribuidos.sistemas.trabalho.servicosoap.CalculatorWS service = new distribuidos.sistemas.trabalho.servicosoap.CalculatorWS();
-        distribuidos.sistemas.trabalho.servicosoap.ServidorSoapSD port = service.getServidorSoapSDPort();
-        return port.excluir(codigo);
-    }
 }
