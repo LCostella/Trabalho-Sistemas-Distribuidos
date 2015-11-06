@@ -1,6 +1,7 @@
 
 package distribuidos.sistemas.trabalho.servicosoap;
 
+import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -23,6 +24,36 @@ import javax.xml.ws.ResponseWrapper;
 })
 public interface ServidorSoapSD {
 
+
+    /**
+     * 
+     * @param cep
+     * @return
+     *     returns distribuidos.sistemas.trabalho.servicosoap.Cep
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "buscarCep", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.BuscarCep")
+    @ResponseWrapper(localName = "buscarCepResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.BuscarCepResponse")
+    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/buscarCepRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/buscarCepResponse")
+    public Cep buscarCep(
+        @WebParam(name = "cep", targetNamespace = "")
+        int cep);
+
+    /**
+     * 
+     * @param contato
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "inserirContato", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirContato")
+    @ResponseWrapper(localName = "inserirContatoResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirContatoResponse")
+    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirContatoRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirContatoResponse")
+    public boolean inserirContato(
+        @WebParam(name = "contato", targetNamespace = "")
+        Contato contato);
 
     /**
      * 
@@ -71,18 +102,18 @@ public interface ServidorSoapSD {
 
     /**
      * 
-     * @param contato
+     * @param cidade
      * @return
-     *     returns boolean
+     *     returns java.util.List<distribuidos.sistemas.trabalho.servicosoap.Contato>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "inserirContato", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirContato")
-    @ResponseWrapper(localName = "inserirContatoResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirContatoResponse")
-    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirContatoRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirContatoResponse")
-    public boolean inserirContato(
-        @WebParam(name = "contato", targetNamespace = "")
-        Contato contato);
+    @RequestWrapper(localName = "listarContato", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarContato")
+    @ResponseWrapper(localName = "listarContatoResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarContatoResponse")
+    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarContatoRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarContatoResponse")
+    public List<Contato> listarContato(
+        @WebParam(name = "cidade", targetNamespace = "")
+        Cidade cidade);
 
     /**
      * 
@@ -104,6 +135,33 @@ public interface ServidorSoapSD {
 
     /**
      * 
+     * @param contato
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "alterarContato", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.AlterarContato")
+    @ResponseWrapper(localName = "alterarContatoResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.AlterarContatoResponse")
+    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/alterarContatoRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/alterarContatoResponse")
+    public boolean alterarContato(
+        @WebParam(name = "contato", targetNamespace = "")
+        Contato contato);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<distribuidos.sistemas.trabalho.servicosoap.Cidade>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listarCidade", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarCidade")
+    @ResponseWrapper(localName = "listarCidadeResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarCidadeResponse")
+    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarCidadeRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarCidadeResponse")
+    public List<Cidade> listarCidade();
+
+    /**
+     * 
      * @param cep
      * @return
      *     returns boolean
@@ -116,20 +174,5 @@ public interface ServidorSoapSD {
     public boolean inserirCep(
         @WebParam(name = "cep", targetNamespace = "")
         Cep cep);
-
-    /**
-     * 
-     * @param cep
-     * @return
-     *     returns distribuidos.sistemas.trabalho.servicosoap.Cep
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "buscarCep", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.BuscarCep")
-    @ResponseWrapper(localName = "buscarCepResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.BuscarCepResponse")
-    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/buscarCepRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/buscarCepResponse")
-    public Cep buscarCep(
-        @WebParam(name = "cep", targetNamespace = "")
-        int cep);
 
 }

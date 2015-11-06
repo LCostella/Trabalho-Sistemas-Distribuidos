@@ -10,6 +10,7 @@ package distribuidos.sistemas.trabalho.servicoSoap;
 import distribuidos.sistemas.trabalho.classes.Cep;
 import distribuidos.sistemas.trabalho.classes.Cidade;
 import distribuidos.sistemas.trabalho.classes.Contato;
+import distribuidos.sistemas.trabalho.dao.AlterarContato;
 import distribuidos.sistemas.trabalho.dao.BuscarCep;
 import distribuidos.sistemas.trabalho.dao.BuscarCidade;
 import distribuidos.sistemas.trabalho.dao.BuscarContato;
@@ -18,6 +19,7 @@ import distribuidos.sistemas.trabalho.dao.InserirCidade;
 import distribuidos.sistemas.trabalho.dao.InserirContato;
 import distribuidos.sistemas.trabalho.dao.RemoverContato;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -117,6 +119,46 @@ public class ServidorSoapSD {
         BuscarCidade bc = new BuscarCidade();
         try {
             return bc.buscarCidade(nome, estado);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServidorSoapSD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+        /**
+     * Operação de Web service
+     */
+    @WebMethod(operationName = "alterarContato")
+    public boolean alterarContato(@WebParam(name = "contato") Contato contato) {
+        AlterarContato ac = new AlterarContato();
+        return ac.alterar(contato);
+    }
+    
+    
+    /**
+     * Operação de Web service
+     */
+    @WebMethod(operationName = "listarCidade")
+    public List<Cidade> listarCidade(){
+        //TODO write your implementation code here:
+        BuscarCidade bc = new BuscarCidade();
+        try {
+            return bc.listar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServidorSoapSD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    /**
+     * Operação de Web service
+     */
+    @WebMethod(operationName = "listarContato")
+    public List<Contato> listarContato(@WebParam(name = "cidade") Cidade cidade) {
+        //TODO write your implementation code here:
+        BuscarContato bc = new BuscarContato();
+        try {
+            
+            return bc.listar(cidade);
         } catch (SQLException ex) {
             Logger.getLogger(ServidorSoapSD.class.getName()).log(Level.SEVERE, null, ex);
         }
