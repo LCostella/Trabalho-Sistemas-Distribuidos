@@ -31,8 +31,6 @@ public class ReceptorUDP {
         fila = new LinkedList<>();
         inserir = new ThreadInserirFila(fila, "inserir");
         retirar = new ThreadRetiraFila(fila, "retirar");
-        inserir.start();
-        retirar.start();
     }
 //    public static void main(String[] args) throws Exception {
 //        int porta = 2010;
