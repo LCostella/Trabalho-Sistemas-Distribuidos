@@ -6,12 +6,17 @@
 package receptor.udp;
 
 import distribuidos.sistemas.trabalho.classes.Contato;
+import distribuidos.sistemas.trabalho.dao.AlterarContato;
+import distribuidos.sistemas.trabalho.dao.BuscarContato;
 import distribuidos.sistemas.trabalho.dao.InserirContato;
+import distribuidos.sistemas.trabalho.dao.RemoverContato;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -92,22 +97,49 @@ public class ThreadRetiraFila extends Thread{
                 //i++;
                 //contato.setEmailAlternativo(dados.get(i));
                 //i++;
-               //inserir(contato);
+                InserirContato ic = new InserirContato();
+                if(ic.inserir(contato)){
+                    System.out.println("Cadastrado com sucesso!");
+                    // Aqui vamos retornar para o cliente
+                }
             }
-            if(dados.get(i)=="m"){ // Testa se for alterar, se for, popula o objeto com os dados proximos da lista
+            if(dados.get(i)=="m"){ // Testa se for alterar, se for popula o objeto com os dados proximos da lista
                 i++;
+                
+                AlterarContato ac = new AlterarContato();
+                if(ac.alterar(contato)){
+                    System.out.println("Alterado com sucesso!");
+                }
             }
             
             if(dados.get(i)=="d"){ // Testa se for deletar, e recebe o codigo a ser deletado
                 i++;
                 int cod = Integer.getInteger(dados.get(i));
                 i++;
+                
+                RemoverContato ic = new RemoverContato();
+                if(ic.remover(contato)){
+                    System.out.println("Excluido com sucesso!");
+                    return;
+                }else{
+                    System.out.println("Erro ao excluir");
+                    return;
+                }
             }
             
             if(dados.get(i)=="c"){ // Testa se for cansultar e guarda o código recebido
                 i++;
-                int cod = Integer.getInteger(dados.get(i));
+                int codigo = Integer.getInteger(dados.get(i));
                 i++;
+
+                BuscarContato bc = new BuscarContato();
+                contato = null;
+                try {
+                    contato = bc.buscarContato(codigo);
+                } catch (SQLException ex) {
+                    System.out.println("Erro: "+
+                        ex.getLocalizedMessage());
+                }
             }
             
             if(dados.get(i)=="l"){ // Testa se for listar e guarda a cidade a qual deseja rceeber os contatos.
