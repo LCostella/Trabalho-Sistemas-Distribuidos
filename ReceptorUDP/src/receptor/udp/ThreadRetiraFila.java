@@ -6,6 +6,7 @@
 package receptor.udp;
 
 import distribuidos.sistemas.trabalho.classes.Contato;
+import distribuidos.sistemas.trabalho.dao.InserirContato;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.ArrayList;
@@ -65,6 +66,11 @@ public class ThreadRetiraFila extends Thread{
             } 
         }
         //"codigo/nome/email/endereco/complemento/cep/cidade/estado/email alternativo
+        //"Adicionar (add) --------> a");
+        //"Alterar (modify) -------> m");
+        //"Excluir (delete) -------> d");
+        //"Consultar (consult) ----> c");
+        //"Listar Cidades (list) --> l");
         for(int i=0; i<dados.size(); i++){ // Percore a lista
             if(dados.get(i)=="a"){ // Testa se for adição, se for, popula o objeto com os dados proximos da lista
                 i++;
@@ -86,6 +92,28 @@ public class ThreadRetiraFila extends Thread{
                 //i++;
                 //contato.setEmailAlternativo(dados.get(i));
                 //i++;
+               //inserir(contato);
+            }
+            if(dados.get(i)=="m"){ // Testa se for alterar, se for, popula o objeto com os dados proximos da lista
+                i++;
+            }
+            
+            if(dados.get(i)=="d"){ // Testa se for deletar, e recebe o codigo a ser deletado
+                i++;
+                int cod = Integer.getInteger(dados.get(i));
+                i++;
+            }
+            
+            if(dados.get(i)=="c"){ // Testa se for cansultar e guarda o código recebido
+                i++;
+                int cod = Integer.getInteger(dados.get(i));
+                i++;
+            }
+            
+            if(dados.get(i)=="l"){ // Testa se for listar e guarda a cidade a qual deseja rceeber os contatos.
+                i++;
+                String cidade = dados.get(i);
+                i++;  
             }
         }
     }
