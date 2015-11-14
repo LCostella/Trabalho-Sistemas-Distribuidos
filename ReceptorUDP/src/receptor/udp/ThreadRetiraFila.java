@@ -8,7 +8,6 @@ package receptor.udp;
 import distribuidos.sistemas.trabalho.classes.Contato;
 import distribuidos.sistemas.trabalho.dao.AlterarContato;
 import distribuidos.sistemas.trabalho.dao.BuscarContato;
-import distribuidos.sistemas.trabalho.dao.InserirContato;
 import distribuidos.sistemas.trabalho.dao.RemoverContato;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -16,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -70,12 +71,35 @@ public class ThreadRetiraFila extends Thread{
                 dado = ""; // "Esvazia" a string para começar a concatenar denovo
             } 
         }
+        //lembre de que quando for add nao tem codigo
         //"codigo/nome/email/endereco/complemento/cep/cidade/estado/email alternativo
         //"Adicionar (add) --------> a");
         //"Alterar (modify) -------> m");
         //"Excluir (delete) -------> d");
         //"Consultar (consult) ----> c");
         //"Listar Cidades (list) --> l");
+           
+        //johni.... usar isso como exemplo para os demais
+        if(dados.get(0).equals("a")){
+            Inserir ic = new Inserir();
+            String resposta = "";
+            if(ic.inserir(dados)){
+                resposta = "Inserido com sucesso!";
+            }else{
+                resposta = "Falha ao inserir, por favor tente novamente!";
+            }
+            RetornarCliente rc = new RetornarCliente();
+            try {
+                rc.responder(pct.getAddress(), resposta);
+            } catch (Exception ex) {
+                Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        // fim exemplo
+        
+        
+        
+        
         for(int i=0; i<dados.size(); i++){ // Percore a lista
             if(dados.get(i)=="a"){ // Testa se for adição, se for, popula o objeto com os dados proximos da lista
                 i++;
@@ -97,11 +121,11 @@ public class ThreadRetiraFila extends Thread{
                 //i++;
                 //contato.setEmailAlternativo(dados.get(i));
                 //i++;
-                InserirContato ic = new InserirContato();
-                if(ic.inserir(contato)){
-                    System.out.println("Cadastrado com sucesso!");
-                    // Aqui vamos retornar para o cliente
-                }
+//                InserirContato ic = new InserirContato();
+//                if(ic.inserir(contato)){
+//                    System.out.println("Cadastrado com sucesso!");
+//                    // Aqui vamos retornar para o cliente
+//                }
             }
             if(dados.get(i)=="m"){ // Testa se for alterar, se for popula o objeto com os dados proximos da lista
                 i++;
