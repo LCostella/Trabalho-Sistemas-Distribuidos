@@ -79,75 +79,54 @@ public class ThreadRetiraFila extends Thread{
         //"Consultar (consult) ----> c");
         //"Listar Cidades (list) --> l");
            
-        //johni.... usar isso como exemplo para os demais
-        if(dados.get(0).equals("a")){
-            Inserir ic = new Inserir();
-            String resposta = "";
-            if(ic.inserir(dados)){
-                resposta = "Inserido com sucesso!";
-            }else{
-                resposta = "Falha ao inserir, por favor tente novamente!";
-            }
-            RetornarCliente rc = new RetornarCliente();
-            try {
-                rc.responder(pct.getAddress(), resposta);
-            } catch (Exception ex) {
-                Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        // fim exemplo
-        
-        
-        
         
         for(int i=0; i<dados.size(); i++){ // Percore a lista
-            if(dados.get(i)=="a"){ // Testa se for adição, se for, popula o objeto com os dados proximos da lista
-                i++;
-                contato.setCodigo((Integer.getInteger(dados.get(i))));
-                i++;
-                contato.setNome(dados.get(i));
-                i++;
-                contato.setEmail(dados.get(i));
-                i++;
-                contato.setEndereco(dados.get(i));
-                i++;
-                contato.setComplemento(dados.get(i));
-                i++;
-                //contato.setCep(dados.get(i));
-                //i++;
-                //contato.set();
-                //i++;
-                //contato.set();
-                //i++;
-                //contato.setEmailAlternativo(dados.get(i));
-                //i++;
-//                InserirContato ic = new InserirContato();
-//                if(ic.inserir(contato)){
-//                    System.out.println("Cadastrado com sucesso!");
-//                    // Aqui vamos retornar para o cliente
-//                }
+            if(dados.get(0).equals("a")){
+                Inserir ic = new Inserir();
+                String resposta = "";
+                if(ic.inserir(dados)){
+                    resposta = "Inserido com sucesso!";
+                }else{
+                    resposta = "Falha ao inserir, por favor tente novamente!";
+                }
+                RetornarCliente rc = new RetornarCliente();
+                try {
+                    rc.responder(pct.getAddress(), resposta);
+                } catch (Exception ex) {
+                    Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            if(dados.get(i)=="m"){ // Testa se for alterar, se for popula o objeto com os dados proximos da lista
-                i++;
-                
-                AlterarContato ac = new AlterarContato();
-                if(ac.alterar(contato)){
-                    System.out.println("Alterado com sucesso!");
+        
+        
+            if(dados.get(0).equals("m")){
+                Alterar ic = new Alterar();
+                String resposta = "";
+                if(ic.alterar(dados)){
+                    resposta = "Alterado com sucesso!";
+                }else{
+                    resposta = "Falha ao alterar, por favor tente novamente!";
+                }
+                RetornarCliente rc = new RetornarCliente();
+                try {
+                    rc.responder(pct.getAddress(), resposta);
+                } catch (Exception ex) {
+                    Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
-            if(dados.get(i)=="d"){ // Testa se for deletar, e recebe o codigo a ser deletado
-                i++;
-                int cod = Integer.getInteger(dados.get(i));
-                i++;
-                
-                RemoverContato ic = new RemoverContato();
-                if(ic.remover(contato)){
-                    System.out.println("Excluido com sucesso!");
-                    return;
+            if(dados.get(0).equals("d")){
+                Deletar ic = new Deletar();
+                String resposta = "";
+                if(ic.deletar(dados)){
+                    resposta = "Deletado com sucesso!";
                 }else{
-                    System.out.println("Erro ao excluir");
-                    return;
+                    resposta = "Falha ao deletar, por favor tente novamente!";
+                }
+                RetornarCliente rc = new RetornarCliente();
+                try {
+                    rc.responder(pct.getAddress(), resposta);
+                } catch (Exception ex) {
+                    Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
