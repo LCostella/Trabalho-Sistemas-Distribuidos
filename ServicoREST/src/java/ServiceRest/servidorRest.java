@@ -38,7 +38,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Bola de Pelos
  */
-@Path("rest")
+@Path("Rest")
 public class servidorRest {
 
     @Context
@@ -63,8 +63,8 @@ public class servidorRest {
 
     @GET
     @Produces("application/json")
-    @Path("Rest/Cep/buscar/{cep}")
-    public Cep buscarCep(@PathParam("cep") int cep){
+    @Path("/cep")
+    public Cep buscarCep(@QueryParam("cep") int cep){
       Cep c = null;
         BuscarCep bc = new BuscarCep();
         try {       
@@ -74,101 +74,118 @@ public class servidorRest {
         }
         return c;
     }
-    
-    
-    @GET
+//       
+   @GET
     @Produces("application/json")
-    @Path("Rest/Contato/buscar/{codigo}")
-     public Contato buscarContato(@PathParam("codigo") int codigo) {
+    @Path("/contact")
+     public Contato buscarContato(@QueryParam("contact") int contact) {
        Contato c= null;
        BuscarContato bc = new BuscarContato();
         try {      
-            c =bc.buscarContato(codigo);
+            c =bc.buscarContato(contact);
         } catch (SQLException ex) {
             Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
         }
-              
         return c;
-    }
-     
-     
-     
-     
-       @GET
-       @Produces("application/json")
-       @Path("Rest/Cidade/buscar/{nome}/{estado}")
-       public Cidade buscarCidade(@PathParam("nome") String nome, @PathParam("estado") String estado) {
+    }     
+    //****** Did not handle BuscarCidade in client yet ***** 
+    @GET
+    @Produces("application/json")
+    @Path("/buscarCidade")
+    public Cidade buscarCidade(@QueryParam("nome") String nome, @QueryParam("estado") String estado) 
+    {
         BuscarCidade bc = new BuscarCidade();
         try {
-            return bc.buscarCidade(nome, estado);
-        } catch (SQLException ex) {
+         return bc.buscarCidade(nome, estado);
+        } catch (SQLException ex) 
+        {
             Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-     
-     
-     @GET
-     @Produces("application/json")
-     @Path("Rest/listcidade")
-      public List<Cidade> listarCidade(){
-     
-        BuscarCidade bc = new BuscarCidade();
-        try {
-            return bc.listar();
-        } catch (SQLException ex) {
-            Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
- 
-    }
-      
-      
-      
-      
-     @PUT
-     @Consumes(MediaType.APPLICATION_JSON)
-     @Produces(MediaType.APPLICATION_JSON)
-     @Path("Rest/listContatoPorCidade")
-        public List<Contato> listarContato(Cidade cidade) {
+//          
+    @GET
+    @Produces("application/json")
+    @Path("/listcidade")
+    public List<Cidade> listarCidade(){
         
-        BuscarContato bc = new BuscarContato();
+        BuscarCidade bc = new BuscarCidade();
         try {
-            
-            return bc.listar(cidade);
+           return bc.listar();
         } catch (SQLException ex) {
-            Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+       return null;
     }
-    
-    
-    
-    @DELETE
-     @Produces("application/xml")
-     @Path("Rest/Contato/delete/{codigo}")
-     public String excluirContato(@PathParam("codigo") int codigo) {
-        Contato c = new Contato();
-        c.setCodigo(codigo);
-        RemoverContato r = new RemoverContato();
-        boolean k = false;
-        k = r.remover(c);
-        if(k)
-            return "OK";
-        else 
-            return "FAIL";
-     }
-    
-    
+//            
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/listContatoPorCidade")
+       public List<Contato> listarContato(@QueryParam("codigo") Integer codigo,
+               @QueryParam("estado") String estado, @QueryParam("nome") String nome) {
 
-     
+       BuscarContato bc = new BuscarContato();
+       try {
+           Cidade cidade = new Cidade();
+           cidade.setCodigo(codigo);
+           cidade.setEstado(estado);
+           cidade.setNome(nome);
+           return bc.listar(cidade);
+       } catch (SQLException ex) {
+           Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return null;
+    } 
+    
      @POST
      @Consumes(MediaType.APPLICATION_JSON)
      @Produces("application/json")
-     @Path("Rest/Contato/inserir")
+     @Path("/inserirCep")
+	public String inserirCep(@QueryParam("codigo") Integer codigo,
+               @QueryParam("estado") String estado, 
+               @QueryParam("nome") String nome, @QueryParam("cep") Integer cep)
+        {
+            Cep c = new Cep();
+            Cidade cidade = new Cidade();
+            cidade.setCodigo(codigo);
+            cidade.setEstado(estado);
+            cidade.setNome(nome);
+            c.setCep(cep);
+            c.setCidade(cidade);
+            InserirCep ic = new InserirCep();
+            boolean k;
+            k = ic.inserir(c);
+            if(k){
+             return"OK"; 
+            }
+            else {
+             return "Fail";
+            }
+        }
+//   ****** Did not handle excluirContato in client yet ***** 
+    @DELETE
+    @Produces("application/xml")
+    @Path("/excluirContato")
+    public String excluirContato(@PathParam("codigo") int codigo) {
+       Contato c = new Contato();
+       c.setCodigo(codigo);
+       RemoverContato r = new RemoverContato();
+       boolean k = false;
+       k = r.remover(c);
+       if(k)
+           return "OK";
+       else 
+           return "FAIL";
+     }
+    
+//   ****** Did not handle inserirContato in client yet *****
+     @POST
+     @Consumes(MediaType.APPLICATION_JSON)
+     @Produces("application/json")
+     @Path("/inserirContato")
      public String inserirContato(Contato contato){
-         
-        
+
          Contato c = new Contato();
          InserirContato ic = new InserirContato();
          boolean k;
@@ -179,40 +196,16 @@ public class servidorRest {
          }else {
              return "Fail";
          }
-         
      }
-     
-     
-     
-     
+
+
+//     
+//     ****** Did not handle inserirCidade in client yet *****
      @POST
      @Consumes(MediaType.APPLICATION_JSON)
      @Produces("application/json")
-     @Path("Rest/Cep/inserir")
-     public String inserirCep(Cep cep){
-         
-        
-         Cep c = new Cep();
-         InserirCep ic = new InserirCep();
-         boolean k;
-         k = ic.inserir(cep);
-         if(k){
-             return"OK";
-             
-         }else {
-             return "Fail";
-         }
-         
-     }
-     
-     
-     @POST
-     @Consumes(MediaType.APPLICATION_JSON)
-     @Produces("application/json")
-     @Path("Rest/Cidade/inserir")
+     @Path("/inserirCidade")
      public String inserirCidade(Cidade cidade){
-         
-        
          Cidade c = new Cidade();
          InserirCidade ic = new InserirCidade();
          boolean k;
@@ -222,31 +215,23 @@ public class servidorRest {
              
          }else {
              return "Fail";
-         }
-         
+         }   
      }
-     
+//     ****** Did not handle alterarContato in client yet *****
     @PUT
-     @Consumes(MediaType.APPLICATION_JSON)
-     @Produces("application/json")
-     @Path("Rest/Contato/alterar")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces("application/json")
+    @Path("/alterarContato")
     public String alterarContato(Contato contato) {
-        AlterarContato ac = new AlterarContato();
-        
-        boolean k;
-        k =  ac.alterar(contato);
-        if(k){
-             return"OK";
-             
-         }else {
-             return "Fail";
-         }
-    }
-     
-     
-     
-     
-     
-}
-    
+       AlterarContato ac = new AlterarContato();
 
+       boolean k;
+       k =  ac.alterar(contato);
+       if(k){
+            return"OK";
+
+        }else {
+            return "Fail";
+        }
+    }     
+}
