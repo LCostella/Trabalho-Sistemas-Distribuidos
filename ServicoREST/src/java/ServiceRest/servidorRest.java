@@ -63,7 +63,7 @@ public class servidorRest {
 
     @GET
     @Produces("application/json")
-    @Path("/cep")
+    @Path("/buscarcep")
     public Cep buscarCep(@QueryParam("cep") int cep){
       Cep c = null;
         BuscarCep bc = new BuscarCep();
@@ -157,10 +157,10 @@ public class servidorRest {
             boolean k;
             k = ic.inserir(c);
             if(k){
-             return"OK"; 
+             return "SUCCESS! NEW CEP IS SAVED"; 
             }
             else {
-             return "Fail";
+             return "Fail! SOMETHING IS WRONG";
             }
         }
 //   ****** Did not handle excluirContato in client yet ***** 

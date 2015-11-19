@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8"/>
+        <title>REST CLIENT USING ANGULAR</title>
+        <link href="http://fonts.googleapis.com/css?family=Cookie|Open+Sans:400,700" rel="stylesheet" />
+        <!-- The main CSS file -->
+        <link href="CssClass/style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body ng-app="switchableGrid" ng-controller="SwitchableGridController">
+    
+    <div class="main">
+   
+        <div>
+        <div class="register">
+            <h3>BUSCAR CONTATO POR CIDADE</h3>
+            <form ng-submit="buscaRest()">
+                <div>
+                    <label for="name">Codigo</label>
+                    <input type="text" ng-model="codigo" name="codigo"/>
+                </div>
+                
+                <div>
+                    <label for="name">Estado</label>
+                    <input type="text" ng-model="estado" name="estado"/>
+                </div>
+                
+                <div>
+                    <label for="name">Nome</label>
+                    <input type="text" ng-model="nome" name="nome"/>
+                </div>
+                
+                <div>
+                    <label></label>
+                    <input type="submit" value="SEARCH CONTACT BY CITY" class="button"/>
+                </div>
+            </form>
+            <div ng-repeat="mostraAbbasRest in items">
+                <h3>{{mostraAbbasRest}}</h3>
+            </div>
+        </div>
+        </div>
+    </div> 
+        
+        <!-- Include AngularJS from Google's CDN and the resource module -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
+        <script src="AppController/script.js" type="text/javascript"></script>
+    </body>
+</html>
