@@ -130,18 +130,22 @@ public class ThreadRetiraFila extends Thread{
                 }
             }
             
-            if(dados.get(i)=="c"){ // Testa se for cansultar e guarda o código recebido
-                i++;
-                int codigo = Integer.getInteger(dados.get(i));
-                i++;
-
-                BuscarContato bc = new BuscarContato();
-                contato = null;
+            // PRECISO VER O RETORNO PARA O CLIENTE
+            if(dados.get(0).equals("c")){ // Testa se for cansultar e guarda o código recebido
+                Consultar ic = new Consultar();
+                String resposta = "";
+                Contato contato = new Contato();
                 try {
-                    contato = bc.buscarContato(codigo);
-                } catch (SQLException ex) {
-                    System.out.println("Erro: "+
-                        ex.getLocalizedMessage());
+                    contato = ic.consultar(dados);
+                } catch (Exception ex) {
+                    Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                RetornarCliente rc = new RetornarCliente();
+                try {
+                    rc.responder(pct.getAddress(), resposta);
+                } catch (Exception ex) {
+                    Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
@@ -152,6 +156,4 @@ public class ThreadRetiraFila extends Thread{
             }
         }
     }
-    
-    
 }
