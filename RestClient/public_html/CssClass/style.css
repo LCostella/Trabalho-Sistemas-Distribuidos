@@ -48,4 +48,53 @@
   padding: 10px;
   border: 1px solid #59B969;
   box-shadow: 0 1px 0 0 #60BD49 inset;
+  background: #63E651;
+  background: -webkit-linear-gradient(#63E651, #42753E);
+  background: -moz-linear-gradient(#63E651, #42753E);
+  background: -o-linear-gradient(#63E651, #42753E);
+  background: linear-gradient(#63e651, #42753e);
+}
+.register .button:hover {
+  background: #51DB1C;
+  background: -webkit-linear-gradient(#51DB1C, #6BA061);
+  background: -moz-linear-gradient(#51DB1C, #6BA061);
+  background: -o-linear-gradient(#51DB1C, #6BA061);
+  background: linear-gradient(#51db1c, #6ba061);
+}
+
+.register .social-buttons {
+  display: inline-block;
+  min-width: 150px;
+  height: 50px;
+  margin: 0 5px 10px;
+  border-radius: 10px;
+  text-shadow: 1px 1px 5px #000000;
+}
+.register .social-buttons a {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: #FFFFFF;
+  padding: 10px 15px;
+}
+.register .social-buttons span {
+  font-size: 20px;
+  margin-left: 0px;
+}
+.register .facebook {
+  background: #415EA3;
+  background: -webkit-linear-gradient(#415EA3, #2E4A88);
+  background: -moz-linear-gradient(#415EA3, #2E4A88);
+  background: -o-linear-gradient(#415EA3, #2E4A88);
+  background: linear-gradient(#415ea3, #2e4a88);
+}
+.register .facebook:hover {
+  background: #3B5591;
+  background: -webkit-linear-gradient(#3B5591, #2A437C);
+  background: -moz-linear-gradient(#3B5591, #2A437C);
+  background: -o-linear-gradient(#3B5591, #2A437C);
+  background: linear-gradient(#3b5591, #2a437c);
+}
+.register .facebook a {
+  background: url(../images/logo_fb_31x42.png) no-repeat 5% 10%;
 }
