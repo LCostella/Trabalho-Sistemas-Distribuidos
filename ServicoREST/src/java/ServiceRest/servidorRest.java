@@ -77,7 +77,7 @@ public class servidorRest {
 //       
    @GET
     @Produces("application/json")
-    @Path("/contact")
+    @Path("/buscarContato")
      public Contato buscarContato(@QueryParam("contact") int contact) {
        Contato c= null;
        BuscarContato bc = new BuscarContato();
@@ -163,11 +163,72 @@ public class servidorRest {
              return "Fail! SOMETHING IS WRONG";
             }
         }
+        
+     @POST
+     @Consumes(MediaType.APPLICATION_JSON)
+     @Produces("application/json")
+     @Path("/inserirContato")
+     public String inserirContato(@QueryParam("nome") String nome, @QueryParam("email") String email,
+             @QueryParam("cep") Integer cep, @QueryParam("codigo") Integer codigo,@QueryParam("complemento") String complemento,
+             @QueryParam("endereco") String endereco, @QueryParam("alternaEmail") String alternaEmail ){
+
+         Contato contact = new Contato();
+         Cep c = new Cep();
+         InserirContato ic = new InserirContato();
+         
+         contact.setNome(nome);
+         contact.setEmail(email);
+         c.setCep(cep);
+         contact.setCep(c);
+         contact.setCodigo(codigo);
+         contact.setComplemento(complemento);
+         contact.setEndereco(endereco);
+         contact.setEmailAlternativo(alternaEmail);
+         
+         boolean k;
+         k = ic.inserir(contact);
+         if(k){
+             return"SUCCESS! Contact Added Successfully...";
+             
+         }else {
+             return "Fail! Try Again...";
+         }
+     }
+     
+     @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces("application/json")
+    @Path("/alterarContato")
+    public String alterarContato(@QueryParam("nome") String nome, @QueryParam("email") String email,
+             @QueryParam("cep") Integer cep, @QueryParam("codigo") Integer codigo,@QueryParam("complemento") String complemento,
+             @QueryParam("endereco") String endereco, @QueryParam("alternaEmail") String alternaEmail) {
+       AlterarContato ac = new AlterarContato();
+       Contato contact = new Contato();
+       Cep c = new Cep();
+       
+        contact.setNome(nome);
+        contact.setEmail(email);
+        c.setCep(cep);
+        contact.setCep(c);
+        contact.setCodigo(codigo);
+        contact.setComplemento(complemento);
+        contact.setEndereco(endereco);
+        contact.setEmailAlternativo(alternaEmail);
+
+       boolean k;
+       k =  ac.alterar(contact);
+       if(k){
+            return"SUCCESS! Contact Alter...";
+
+        }else {
+            return "Fail! Try Again...";
+        }
+    }     
 //   ****** Did not handle excluirContato in client yet ***** 
     @DELETE
     @Produces("application/xml")
     @Path("/excluirContato")
-    public String excluirContato(@PathParam("codigo") int codigo) {
+    public String excluirContato(@QueryParam("codigo") int codigo) {
        Contato c = new Contato();
        c.setCodigo(codigo);
        RemoverContato r = new RemoverContato();
@@ -178,26 +239,6 @@ public class servidorRest {
        else 
            return "FAIL";
      }
-    
-//   ****** Did not handle inserirContato in client yet *****
-     @POST
-     @Consumes(MediaType.APPLICATION_JSON)
-     @Produces("application/json")
-     @Path("/inserirContato")
-     public String inserirContato(Contato contato){
-
-         Contato c = new Contato();
-         InserirContato ic = new InserirContato();
-         boolean k;
-         k = ic.inserir(contato);
-         if(k){
-             return"OK";
-             
-         }else {
-             return "Fail";
-         }
-     }
-
 
 //     
 //     ****** Did not handle inserirCidade in client yet *****
@@ -217,21 +258,4 @@ public class servidorRest {
              return "Fail";
          }   
      }
-//     ****** Did not handle alterarContato in client yet *****
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces("application/json")
-    @Path("/alterarContato")
-    public String alterarContato(Contato contato) {
-       AlterarContato ac = new AlterarContato();
-
-       boolean k;
-       k =  ac.alterar(contato);
-       if(k){
-            return"OK";
-
-        }else {
-            return "Fail";
-        }
-    }     
 }
