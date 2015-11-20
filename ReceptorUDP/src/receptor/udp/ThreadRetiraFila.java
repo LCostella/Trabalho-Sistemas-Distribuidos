@@ -137,22 +137,25 @@ public class ThreadRetiraFila extends Thread{
                 Contato contato = new Contato();
                 try {
                     contato = ic.consultar(dados);
-                } catch (Exception ex) {
-                    Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                RetornarCliente rc = new RetornarCliente();
-                try {
+                    resposta = contato.getCodigo()+" "+contato.getNome()+" "+contato.getEmail()+" "+contato.getEndereco()+
+                               " "+ contato.getComplemento()+" "+contato.getEmailAlternativo();
+                    RetornarCliente rc = new RetornarCliente();
                     rc.responder(pct.getAddress(), resposta);
                 } catch (Exception ex) {
                     Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
-            if(dados.get(i)=="l"){ // Testa se for listar e guarda a cidade a qual deseja rceeber os contatos.
-                i++;
-                String cidade = dados.get(i);
-                i++;  
+            if(dados.get(i).equals("l")){ // Testa se for listar e guarda a cidade a qual deseja rceeber os contatos.
+                List<String> lista = new ArrayList<>();
+                Listar listar = new Listar();
+                RetornarCliente rc = new RetornarCliente();
+                try {
+                    lista = listar.listar(dados);
+                    rc.responder(pct.getAddress(), lista);
+                } catch (Exception ex) {
+                    Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

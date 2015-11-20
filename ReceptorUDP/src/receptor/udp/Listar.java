@@ -19,9 +19,10 @@ import java.util.List;
 public class Listar {
     private Contato contato;
     private Cidade cidade;
-    public Contato listar(List<String> dados) throws Exception{
+    
+    public List<String> listar(List<String> dados) throws Exception{
         contato = new Contato();
-        cidade = new Cidade();
+        List<String> retorno = new ArrayList<>();
         int i = 0;
         if(dados.get(i).equals("c")){ // Testa se for consultar
             i++;
@@ -33,9 +34,16 @@ public class Listar {
             BuscarCidade ic = new BuscarCidade();
             cidade = ic.buscarCidade(nome, uf);
             BuscarContato bc = new BuscarContato();
-            List<Contato> lc = new ArrayList<>();
-            lc = bc.listar(cidade); // Todos os contatos que preciso mandar estão aqui
+            List<Contato> lc;
+            if(cidade !=null){
+                lc = bc.listar(cidade); // Todos os contatos que preciso mandar estão aqui
+                
+                for(Contato c : lc){
+                    String aux = c.getCodigo()+" "+c.getNome()+" "+c.getEmail()+ " \n";
+                    retorno.add(aux);
+                }
+            }
         }
-        return contato;
-}
+        return retorno;
+    }
 }

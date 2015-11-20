@@ -40,7 +40,9 @@ public class Inserir {
             contato.setComplemento(dados.get(i));
             i++;
             contato.setCep(getCep(dados.get(i), dados.get(i+1), dados.get(i+2)));// manda o cep e a cidade
-
+            i++;
+            contato.setEmailAlternativo(dados.get(i));
+            
             InserirContato ic = new InserirContato();
             if(ic.inserir(contato)){
                 //System.out.println("Cadastrado com sucesso!");
