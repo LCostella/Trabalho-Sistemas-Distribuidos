@@ -235,9 +235,9 @@ public class servidorRest {
        boolean k = false;
        k = r.remover(c);
        if(k)
-           return "OK";
+           return "SUCCESS! Contact Is Deleted...";
        else 
-           return "FAIL";
+           return "FAIL! Try Again...";
      }
 
 //     

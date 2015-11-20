@@ -2,13 +2,14 @@
   display: inline-block;
   width: 49%;
   margin-top: 10px;
+  position: fixed;
 }
 
 .register {
   width: 500px;
   margin: 10px auto;
   padding: 10px;
-  border: 7px solid #72B372;
+  border: 15px solid #72B372;
   border-radius: 10px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #444;

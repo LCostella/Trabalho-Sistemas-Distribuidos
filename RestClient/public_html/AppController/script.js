@@ -18,35 +18,24 @@ function SwitchableGridController($scope, $http){
         $scope.mostraAbbasRest1 = {};
         $scope.mostraAbbasRest2 = '';
         $scope.mostraAbbasRest3 = '';
+        $scope.mostraAbbasRest4 = '';
         $scope.items = {
                 codigo: '',
                 email: '',
                 nome: ''
             };
         
-        $scope.buscaRest = function (){
-            $http({ url: '//localhost:18263/ServicoREST/webresources/Rest/listContatoPorCidade',
-                    method: "PUT",
-                    headers: {'Content-type': 'application/json'},
-                    params: { codigo:$scope.codigo, estado:$scope.estado, nome:$scope.nome }
-            }).success(function (data) {
-                console.log(data);
-                $scope.items.nome = data[0].nome;
-                $scope.items.codigo = data[0].codigo;
-                $scope.items.email = data[0].email;
-                //$scope.mostraAbbasRest.push($scope.items);
-            }).error(function (data) {
-            });
-        };
-        
-//        $scope.InsiriCep = function (){
-//            $http({ url: '//localhost:18263/ServicoREST/webresources/Rest/inserirCep',
-//                    method: "POST",
+//        $scope.buscaRest = function (){
+//            $http({ url: '//localhost:18263/ServicoREST/webresources/Rest/listContatoPorCidade',
+//                    method: "PUT",
 //                    headers: {'Content-type': 'application/json'},
-//                    params: { codigo:$scope.codigo, estado:$scope.estado, nome:$scope.nome, cep:$scope.cep }
+//                    params: { codigo:$scope.codigo, estado:$scope.estado, nome:$scope.nome }
 //            }).success(function (data) {
 //                console.log(data);
-//                $scope.mostraAbbasRest2 = data;
+//                $scope.items.nome = data[0].nome;
+//                $scope.items.codigo = data[0].codigo;
+//                $scope.items.email = data[0].email;
+//                //$scope.mostraAbbasRest.push($scope.items);
 //            }).error(function (data) {
 //            });
 //        };
@@ -85,6 +74,18 @@ function SwitchableGridController($scope, $http){
             }).success(function (data) {
                 console.log(data);
                 $scope.mostraAbbasRest3 = data;
+            }).error(function (data) {
+            });
+        };
+        
+        $scope.excluirContato = function (){
+            $http({ url: '//localhost:18263/ServicoREST/webresources/Rest/excluirContato',
+                    method: "DELETE",
+                    headers: {'Content-type': 'application/json'},
+                    params: {codigo:$scope.codigo }
+            }).success(function (data) {
+                console.log(data);
+                $scope.mostraAbbasRest4 = data;
             }).error(function (data) {
             });
         };

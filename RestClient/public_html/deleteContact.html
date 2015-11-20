@@ -13,26 +13,21 @@
    
         <div>
         <div class="register">
-            <h3>SEARCH CITY BY NAME</h3>
-            <form ng-submit="buscarContato()">
+            <h3>DELETE CONTACT</h3>
+            <form ng-submit="excluirContato()">
                 <div>
                     <label for="name">Contact Id</label>
-                    <input type="text" ng-model="contact" name="contact"/>
+                    <input type="text" ng-model="codigo" name="codigo"/>
                 </div>
                 
                 <div>
                     <label></label>
-                    <input type="submit" value="SEARCH CONTACT" class="button"/>
+                    <input type="submit" value="DELETE CONTACT" class="button"/>
                 </div>
             </form>
             
             <div>
-                <h3>{{mostraAbbasRest1.codigo}}</h3>
-                <h3>{{mostraAbbasRest1.nome}}</h3>
-                <h3>{{mostraAbbasRest1.cep.cep}}</h3>
-                <h3>{{mostraAbbasRest1.email}}</h3>
-                <h3>{{mostraAbbasRest1.complemento}}</h3>
-                <h3>{{mostraAbbasRest1.cep.cidade.nome}}</h3>
+                <h3>{{mostraAbbasRest4}}</h3>
             </div>
         </div>
         </div>
