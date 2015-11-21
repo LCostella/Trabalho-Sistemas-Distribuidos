@@ -5,6 +5,7 @@
  */
 package ServiceRest;
 
+
 import distribuidos.sistemas.trabalho.classes.Cep;
 import distribuidos.sistemas.trabalho.classes.Cidade;
 import distribuidos.sistemas.trabalho.classes.Contato;
@@ -20,6 +21,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -74,7 +76,58 @@ public class servidorRest {
         }
         return c;
     }
-//       
+   
+    //---------------------------------------------------------------------------------------------------------------------
+    //Método excluir contato usando PathParam para ser usado pelo Android
+     @DELETE
+    @Produces("application/xml")
+    @Path("excluirContatoMobile/{codigo}")
+    public String excluirContatoMobile(@PathParam("codigo") int codigo) {
+        Contato c = new Contato();
+        c.setCodigo(codigo);
+        RemoverContato r = new RemoverContato();
+        boolean k = false;
+        k = r.remover(c);
+        if (k) {
+            return "OK";
+        } else {
+            return "FAIL";
+        }
+    }
+   ///----------------------------------------------------------------------------------------------------------------------------------------
+    //Método Bucar CEP usando PathParam para ser usado pelo Android
+    @GET
+    @Produces("application/json")
+    @Path("buscarCepMobile/{cep}")
+    public Cep bucarCepMobile(@PathParam ("cep") int cep){
+    
+      Cep c = null;
+        BuscarCep bc = new BuscarCep();
+        try {       
+            c= bc.buscarCep(cep);
+        } catch (SQLException ex) {
+            Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return c;
+    }
+    
+    //-------------------------------------------------------------------------------------------------------------------------
+//MÉTODO BUSCAR CONTATO USANDO PATH PARAM PARA SER USADO NO ANDROID
+    @GET
+    @Produces("application/json")
+    @Path("buscarContatoMobile/{codigo}")
+    public Contato buscarContatoMobile(@PathParam("codigo") int codigo) {
+        Contato c = null;
+        BuscarContato bc = new BuscarContato();
+        try {
+            c = bc.buscarContato(codigo);
+        } catch (SQLException ex) {
+            Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return c;
+    }
+    
    @GET
     @Produces("application/json")
     @Path("/buscarContato")
@@ -91,6 +144,7 @@ public class servidorRest {
     //****** Did not handle BuscarCidade in client yet ***** 
     @GET
     @Produces("application/json")
+    
     @Path("/buscarCidade")
     public Cidade buscarCidade(@QueryParam("nome") String nome, @QueryParam("estado") String estado) 
     {
