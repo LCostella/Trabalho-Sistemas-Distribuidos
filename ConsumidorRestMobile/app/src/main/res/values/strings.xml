@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ConsumidorRestMobile</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_inserir">InserirActivity</string>
+    <string name="title_activity_inserir_contato_tela">InserirContatoTela</string>
+    <string name="title_activity_remover_contato">RemoverContato</string>
+    <string name="title_activity_consultar_contato">ConsultarContato</string>
+    <string name="title_activity_listar_contato">ListarContato</string>
+
+</resources>

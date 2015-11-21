@@ -1,0 +1,126 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="cosumidorrestandroid.extras.trabalho.distribuidos.sistemas.consumidorrestmobile.InserirContatoTela">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Inserir Contato"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Nome"
+        android:ems="10"
+        android:id="@+id/nome"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/email"
+
+        android:hint="Email"
+        android:layout_below="@+id/nome"
+        android:layout_alignLeft="@+id/nome"
+        android:layout_alignStart="@+id/nome" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/cep"
+        android:layout_below="@+id/email"
+        android:layout_alignRight="@+id/nome"
+        android:hint="CEP"
+        android:onClick="eventoBuscarCep"
+        />
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/complemento"
+        android:hint="Complemento"
+
+        android:layout_below="@+id/cep"
+        android:layout_alignLeft="@+id/cep"
+        android:layout_alignStart="@+id/cep"
+        android:layout_alignRight="@+id/cep" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endereco"
+        android:hint="Endereço"
+
+        android:layout_below="@+id/complemento"
+        android:layout_alignLeft="@+id/complemento"
+        android:layout_alignStart="@+id/complemento"
+        android:layout_alignRight="@+id/complemento" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cidade"
+        android:hint="Cidade"
+        android:layout_below="@+id/endereco"
+        android:layout_alignLeft="@+id/endereco"
+        android:layout_alignStart="@+id/endereco"
+        android:layout_alignRight="@+id/endereco" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/estado"
+        android:hint="Estado"
+        android:layout_below="@+id/cidade"
+        android:layout_alignRight="@+id/cidade"
+        android:layout_alignLeft="@+id/cidade"
+        android:layout_alignStart="@+id/cidade" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailAlternativo"
+        android:hint="E-mail Alternativo"
+        android:layout_below="@+id/estado"
+        android:layout_alignRight="@+id/cidade"
+        android:layout_alignLeft="@+id/estado"
+        android:layout_alignStart="@+id/estado" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inserir"
+        android:id="@+id/inserir"
+        android:onClick="eventoInserir"
+        android:layout_marginTop="43dp"
+        android:layout_below="@+id/emailAlternativo"
+        android:layout_alignLeft="@+id/emailAlternativo"
+        android:layout_alignStart="@+id/emailAlternativo" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancelar"
+        android:id="@+id/cancelar"
+        android:layout_alignTop="@+id/inserir"
+        android:layout_alignRight="@+id/emailAlternativo"
+        android:layout_alignEnd="@+id/emailAlternativo" />
+</RelativeLayout>

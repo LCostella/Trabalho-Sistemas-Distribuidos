@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cosumidorrestandroid.extras.trabalho.distribuidos.sistemas.consumidorrestmobile" >
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".InserirContatoTela"
+            android:label="@string/title_activity_inserir_contato_tela" >
+        </activity>
+        <activity
+            android:name=".RemoverContatoTela"
+            android:label="@string/title_activity_remover_contato" >
+        </activity>
+        <activity
+            android:name=".ConsultarContatoTela"
+            android:label="@string/title_activity_consultar_contato" >
+        </activity>
+        <activity
+            android:name=".ListarContatoTela"
+            android:label="@string/title_activity_listar_contato" >
+        </activity>
+    </application>
+
+</manifest>
