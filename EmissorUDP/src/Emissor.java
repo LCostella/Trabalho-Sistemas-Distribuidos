@@ -16,7 +16,7 @@ import java.util.Scanner;
  * @author Manoela
  */
 public class Emissor {
-
+    
     /**
      * @param args the command line arguments
      */
@@ -78,11 +78,10 @@ public class Emissor {
         int porta = 2010;
         String host = new String("localhost");
         byte data[] = new byte[1000];
-        msg = (porta + "|Hello Word");
         data = msg.getBytes();
 
         System.out.println("...EMITINDO...");
-
+        System.out.println("Dentro do envia, conteúdo de msg: " + msg);
         InetAddress address;
         DatagramSocket soc;
         DatagramPacket pct;
@@ -178,12 +177,20 @@ public class Emissor {
         }
         System.out.println("...RECEBENDO...");
 
-        System.out.println("Aguarda mensagem");
+        System.out.println("Aguardando mensagem (tempo máximo de espera 1 minuto)");
         try {
-            soc.setSoTimeout(10000); //60 segundos
+            soc.setSoTimeout(60000); //60 segundos
             soc.receive(pct);
             resposta = new String(pct.getData(), 0, pct.getLength());
             msg_resposta = "Recebeu Mensagem";
+            
+            if (resposta.equals("inicio")){ // testando se a resposta é uma lista
+                while(!resposta.equals("fim")){ // para todas as mensagens até a última:
+                    soc.receive(pct); //recebe...
+                    resposta = new String(pct.getData(), 0, pct.getLength()); //...pega o conteúdo...
+                    System.out.println(resposta); //...mostra o conteúdo.
+                }
+            }
         } 
         catch(SocketTimeoutException time){
             msg_resposta = "Tempo máximo de espera atingido";
@@ -207,6 +214,7 @@ public class Emissor {
         System.out.println("Digite as informacoes que deseja adicionar ao banco de dados na seguinte ordem:");
         System.out.println("nome/email/endereco/complemento/cep/cidade/estado/email alternativo");
         adiciona = entrada.next(); //guardar resultado na variável 'adiciona'
+        System.out.println("Mostrando resultado da variável adiciona:" + adiciona);
         envia("a/" + adiciona);
 
         if (recebe().equals("ok")) //receber uma resposta para dar o ok para o usuário
@@ -288,7 +296,7 @@ public class Emissor {
         } else if (recebe().equals("er")) {
             System.out.println("Erro: repita o procedimento.");
         } else {
-            System.out.println("Resultado da pesquisa: " + recebe());
+            System.out.println("Mostrando resultado da pesquisa: " + recebe());
         }
     }
 
