@@ -29,7 +29,11 @@ public class Alterar {
         int i = 0;
         if(dados.get(i).equals("m")){ // Testa se for alterar
             i++;
-            contato.setCodigo((Integer.getInteger(dados.get(i))));
+            if(dados.get(i) != null){
+                contato.setCodigo((Integer.parseInt(dados.get(i))));
+            }else{
+                System.out.println("null");
+            }
             i++;
             contato.setNome(dados.get(i));
             i++;
@@ -40,6 +44,8 @@ public class Alterar {
             contato.setComplemento(dados.get(i));
             i++;
             contato.setCep(getCep(dados.get(i), dados.get(i+1), dados.get(i+2)));// manda o cep e a cidade
+            i = i+3;
+            contato.setEmailAlternativo(dados.get(i));
 
             AlterarContato ic = new AlterarContato();
             if(ic.alterar(contato)){

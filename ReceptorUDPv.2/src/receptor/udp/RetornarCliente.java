@@ -23,8 +23,10 @@ public class RetornarCliente {
     * @param msg mensagem
     */
     public void responder(InetAddress endereco, String msg) throws Exception{
+        System.out.println("Respondendo");
+        System.out.println("endereco "+ endereco.getHostAddress());
         int porta = 2010;
-        byte data[] = new byte[150];//verificar se tem que mudar no cliente
+        byte data[] = new byte[1000];//verificar se tem que mudar no cliente
         data = msg.getBytes();
         DatagramSocket soc = new DatagramSocket(porta);
         DatagramPacket pac = new DatagramPacket(data, data.length, endereco, porta);

@@ -20,7 +20,7 @@ public class Deletar {
         int i = 0;
         if(dados.get(i).equals("d")){ // Testa se for deletar
             i++;
-            contato.setCodigo((Integer.getInteger(dados.get(i))));
+            contato.setCodigo((Integer.parseInt(dados.get(i))));
 
             RemoverContato ic = new RemoverContato();
             if(ic.remover(contato)){
