@@ -21,7 +21,9 @@ public class Consultar {
            
             
             BuscarContato ic = new BuscarContato();
-            contato = ic.buscarContato(Integer.parseInt(dados.get(i)));
+            //System.out.println("Dado : ["+dados.get(i)+"]");
+            //String string = new String(dados.get(i).trim());
+            contato = ic.buscarContato(Integer.parseInt(dados.get(i).trim()));
         }
         return contato;
 }
