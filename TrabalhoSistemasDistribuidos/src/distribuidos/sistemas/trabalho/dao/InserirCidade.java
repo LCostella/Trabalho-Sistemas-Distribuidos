@@ -51,7 +51,7 @@ public class InserirCidade {
         rs.next();
         codigo = rs.getInt(1);
         st.close();
-        Conexao.close();
+        //Conexao.close();
         if (codigo == null) {
             codigo = 1;
         } else {
