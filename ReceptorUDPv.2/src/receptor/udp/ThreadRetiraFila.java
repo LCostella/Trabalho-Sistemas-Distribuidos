@@ -61,30 +61,28 @@ public class ThreadRetiraFila extends Thread{
         System.out.println("Mensagem "+msg);// So pra teste
         msg = new String(fila.poll().getData()); // Retiro o datagrama da fila e guardo ele inteiro em uma string
         
-        msg = "a/1/2/3/4/5/6/7/8";
+        //msg = "c/1";
         
         System.out.println("Retiro o datagrama da fila e guardo ele inteiro em uma string");
         String dado = new String(); // Instancio uma String para ir concatenando os caracteres
         for(int i=0; i<msg.length(); i++){ // Percorre a string inteira
             char c = msg.charAt(i); // Jogo cada caracter da string em uma variavel caracter
             if(c!='/') // Se for diferente de /
-                dado = dado + c; // Concatena
+                dado += c; // Concatena
             else{ // Se for igual a /(significa que ta separando o dado)
                 dados.add(dado); //  Joga a String concatenada em uma lista(é um dado inteiro)
                 dado = ""; // "Esvazia" a string para começar a concatenar denovo
             } 
         }
-        //lembre de que quando for add nao tem codigo
-        //"codigo/nome/email/endereco/complemento/cep/cidade/estado/email alternativo
-        //"Adicionar (add) --------> a");
-        //"Alterar (modify) -------> m");
-        //"Excluir (delete) -------> d");
-        //"Consultar (consult) ----> c");
-        //"Listar Cidades (list) --> l");
+        dados.add(dado);
         
-        System.out.println("Entrou aqui");
+//        System.out.println("1 - "+dados.get(0));
+//        System.out.println("2 - "+dados.get(1));
+//        System.out.println("3 - "+dados.get(2));
+//        System.out.println("4 - "+dados.get(3));
+        
+        
         for(int i=0; i<dados.size(); i++){ // Percore a lista
-            System.out.println("Entrou aqui 2");
             if(dados.get(i).equals("a")){
                 Inserir ic = new Inserir();
                 String resposta = "";
@@ -102,7 +100,7 @@ public class ThreadRetiraFila extends Thread{
             }
         
         
-            if(dados.get(0).equals("m")){
+            if(dados.get(i).equals("m")){
                 Alterar ic = new Alterar();
                 String resposta = "";
                 if(ic.alterar(dados)){
@@ -118,7 +116,7 @@ public class ThreadRetiraFila extends Thread{
                 }
             }
             
-            if(dados.get(0).equals("d")){
+            if(dados.get(i).equals("d")){
                 Deletar ic = new Deletar();
                 String resposta = "";
                 if(ic.deletar(dados)){
@@ -135,7 +133,7 @@ public class ThreadRetiraFila extends Thread{
             }
             
             // PRECISO VER O RETORNO PARA O CLIENTE
-            if(dados.get(0).equals("c")){ // Testa se for cansultar e guarda o código recebido
+            if(dados.get(i).equals("c")){ // Testa se for cansultar e guarda o código recebido
                 Consultar ic = new Consultar();
                 String resposta = "";
                 Contato contato = new Contato();
@@ -145,6 +143,7 @@ public class ThreadRetiraFila extends Thread{
                                " "+ contato.getComplemento()+" "+contato.getEmailAlternativo();
                     RetornarCliente rc = new RetornarCliente();
                     rc.responder(pct.getAddress(), resposta);
+                    System.out.println("Resposta para cliente : "+resposta);
                 } catch (Exception ex) {
                     Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
                 }

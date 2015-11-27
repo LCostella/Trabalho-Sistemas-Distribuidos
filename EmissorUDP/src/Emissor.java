@@ -1,10 +1,8 @@
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
+
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,284 +18,166 @@ public class Emissor {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         // TODO code application logic here
+        
+        
+        try {
+            Receber r = new Receber();
+            r.receber();
+        } catch (Exception ex) {
+            Logger.getLogger(Emissor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         char op = 'o';
         Scanner entrada = new Scanner(System.in);
         
         
                 
         do {
-            System.out.println("-------- EMISSOR UDP ---------");
-            System.out.println(" ");
-            System.out.println("Selecione a opção desejada:");
-            System.out.println(" ");
-            System.out.println("Adicionar (add) --------> a");
-            System.out.println("Alterar (modify) -------> m");
-            System.out.println("Excluir (delete) -------> d");
-            System.out.println("Consultar (consult) ----> c");
-            System.out.println("Listar Cidades (list) --> l");
-            System.out.println("SAIR (exit) ------------> e");
-
-            op = entrada.next().charAt(0);
-            switch (op) {
-                case 'a': //ADD
-                    System.out.println("Você escolheu a opcao Adicionar.");
-                    add();
-                    break;
-                case 'm': //MODIFY
-                    System.out.println("Você escolheu a opcao Alterar.");
-                    modify();
-                    break;
-                case 'd': //DELETE
-                    System.out.println("Você escolheu a opcao Excluir.");
-                    delete();
-                    break;
-                case 'c': //CONSULT
-                    System.out.println("Você escolheu a opcao Consultar.");
-                    consult();
-                    break;
-                case 'l': //LIST
-                    System.out.println("Você escolheu a opcao Listar Cidade.");
-                    list();
-                    break;
-                case 'e': //EXIT
-                    System.out.println("Você escolheu a opção sair.");
-                    break;
-                default:
-                    System.out.println("Valor inválido!");
-                    break;
+            try {
+                System.out.println("-------- EMISSOR UDP ---------");
+                System.out.println(" ");
+                System.out.println("Selecione a opção desejada:");
+                System.out.println(" ");
+                System.out.println("Adicionar (add) -----------> a");
+                System.out.println("Alterar (modify) ----------> m");
+                System.out.println("Excluir (delete) ----------> d");
+                System.out.println("Consultar (consult) -------> c");
+                System.out.println("Listar por Cidade (list) --> l");
+                System.out.println("Listar por Codigo (list) --> o");
+                System.out.println("SAIR (exit) ---------------> e");
+                
+                op = entrada.next().charAt(0);
+                switch (op) {
+                    case 'a': //ADD
+                        System.out.println("Você escolheu a opcao Adicionar.");
+                        Adicionar a = new Adicionar();
+                        a.add();  
+                        
+                        Receber ra = new Receber();
+                        String respostaa = ra.receber();
+                        
+                        if (respostaa.equals("ok")) 
+                        {
+                            System.out.println("Dados cadastrados com sucesso!");
+                        } else if (respostaa.equals("er")) {
+                            System.out.println("Erro: repita o procedimento.");
+                        }                            
+                        break;
+                    case 'm': //MODIFY
+                        System.out.println("Você escolheu a opcao Alterar.");
+                        Modificar m = new Modificar();
+                        m.modify();
+                        
+                        Receber rm = new Receber();
+                        String respostam = rm.receber();
+                        
+                        if (respostam.equals("ne"))//verificar se o cadastro existe (ne = não existe)
+                        {
+                            System.out.println("Cadastro não existente!");
+                        } else if (respostam.equals("ok")) {
+                            System.out.println("Cadastro alterado com sucesso!");//receber uma resposta para dar o ok para o usuário
+                        } else if (respostam.equals("er")) {
+                            System.out.println("Erro: repita o procedimento.");
+                        }
+                        
+                        break;
+                    case 'd': //DELETE
+                        System.out.println("Você escolheu a opcao Excluir.");
+                        Deletar d = new Deletar();
+                        d.delete();
+                        
+                        Receber rd = new Receber();
+                        String respostad = rd.receber();
+                        
+                        if (respostad.equals("ne"))//verificar se o cadastro existe
+                        {
+                            System.out.println("Cadastro não existente!");
+                        } else if (respostad.equals("ok")) {
+                            System.out.println("Cadastro excluido com sucesso!");//receber uma resposta para dar o ok para o usuário
+                        } else if (respostad.equals("er")) {
+                            System.out.println("Erro: repita o procedimento.");
+                        }
+                        break;
+                    case 'c': //CONSULT
+                        System.out.println("Você escolheu a opcao Consultar.");
+                        Consultar c = new Consultar();
+                        c.consult();
+                        
+                        Receber rc = new Receber();
+                        String respostac = rc.receber();
+                        
+                        if (respostac.equals("ne"))//verificar se o cadastro existe
+                        {
+                            System.out.println("Cadastro não existente!");
+                        } else if (respostac.equals("er")) {
+                            System.out.println("Erro: repita o procedimento.");
+                        } else {
+                            System.out.println("Resultado da pesquisa: " + respostac);
+                        }
+                        break;
+                    case 'l': //LIST
+                        System.out.println("Você escolheu a opcao Listar Cidade.");
+                        ListarCidade l = new ListarCidade();
+                        l.list();
+                        
+                        Receber rl = new Receber();
+                        String respostal = rl.receber();
+                        
+                        if (respostal.equals("ne"))//verificar se o cadastro existe
+                        {
+                            System.out.println("Cadastro não existente!");
+                        } else if (respostal.equals("er")) {
+                            System.out.println("Erro: repita o procedimento.");
+                        } else {
+                            System.out.println("Mostrando resultado da pesquisa: " + respostal);
+                        }
+                        break;
+                    case 'o': //OTHER LIST
+                        System.out.println("Você escolheu a opcao Listar Cidade.");
+                        ListarCodigo lc = new ListarCodigo();
+                        lc.listcod();
+                        
+                        Receber rlc = new Receber();
+                        String respostalc = rlc.receber();
+                        
+                        if (respostalc.equals("ne"))//verificar se o cadastro existe
+                        {
+                            System.out.println("Cadastro não existente!");
+                        } else if (respostalc.equals("er")) {
+                            System.out.println("Erro: repita o procedimento.");
+                        } else {
+                            System.out.println("Mostrando resultado da pesquisa: " + respostalc);
+                        }
+                        break;
+                    case 'e': //EXIT
+                        System.out.println("Você escolheu a opção sair.");
+                        break;
+                    default:
+                        System.out.println("Valor inválido!");
+                        break;
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(Emissor.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         } while (op != 'e');
         
     }
 
-    private static void envia(String msg) throws Exception {
-        String msg_resposta = "";
-        int porta = 2010;
-        String host = new String("localhost");
-        byte data[] = new byte[1000];
-        data = msg.getBytes();
+    
+    
 
-        System.out.println("...EMITINDO...");
-        System.out.println("Dentro do envia, conteúdo de msg: " + msg);
-        InetAddress address;
-        DatagramSocket soc;
-        DatagramPacket pct;
+    
 
-        System.out.println("Inicializando InetAdress");
-        try {
-            address = InetAddress.getByName(host);
-            msg_resposta = "Inicializou InetAdress";
-        } catch (Exception e) {
-            msg_resposta = "Não Inicializou InetAdress";
-            return;
-        } finally {
-            System.out.println(msg_resposta);
-        }
+    
 
-        System.out.println("Instanciando Socket");
-        try {
-            soc = new DatagramSocket();
-            msg_resposta = "Inicializou Datagrama Socket";
-        } catch (Exception e) {
-            msg_resposta = "Não Inicializou Datagrama Socket";
-            return;
-        } finally {
-            System.out.println(msg_resposta);
-        }
+    
 
-        System.out.println("Instanciando o pacote a ser enviado");
-        try {
-            pct = new DatagramPacket(data, data.length, address, porta);
-            msg_resposta = "Inicializou Datagrama Packet";
-        } catch (Exception e) {
-            msg_resposta = "Não Inicializou Datagrama Packet";
-            return;
-        } finally {
-            System.out.println(msg_resposta);
-        }
+    
 
-        try {
-            soc.send(pct);
-            msg_resposta = "Enviou Mensagem";
-        } catch (Exception e) {
-            msg_resposta = "Não Foi possível enviar mensagem";
-        } finally {
-            System.out.println(msg_resposta);
-        }
+    
 
-    }
-
-    private static String recebe() {
-        int porta = 2010;
-        String host = new String("localhost");
-        DatagramPacket pct;
-        byte data[] = new byte[1000];
-        InetAddress address;
-        DatagramSocket soc;
-
-        String resposta;
-        String msg_resposta = "";
-
-        System.out.println("Inicializando InetAdress");
-        try {
-            address = InetAddress.getByName(host);
-            msg_resposta = "Inicializou InetAdress";
-        } catch (Exception e) {
-            msg_resposta = "Não Inicializou InetAdress";
-            return "er";
-        } finally {
-            System.out.println(msg_resposta);
-        }
-
-        System.out.println("Instanciando Socket");
-        try {
-            soc = new DatagramSocket();
-            msg_resposta = "Inicializou Datagrama Socket";
-        } catch (Exception e) {
-            msg_resposta = "Não Inicializou Datagrama Socket";
-            return "er";
-        } finally {
-            System.out.println(msg_resposta);
-        }
-
-        
-
-        System.out.println("Instanciando o pacote a ser recebido");
-        try {
-            pct = new DatagramPacket(data, data.length, address, porta);
-            msg_resposta = "Inicializou Datagrama Packet";
-        } catch (Exception e) {
-            msg_resposta = "Não Inicializou Datagrama Packet";
-            return "er";
-        } finally {
-            System.out.println(msg_resposta);
-        }
-        System.out.println("...RECEBENDO...");
-
-        System.out.println("Aguardando mensagem (tempo máximo de espera 1 minuto)");
-        try {
-            soc.setSoTimeout(60000); //60 segundos
-            soc.receive(pct);
-            resposta = new String(pct.getData(), 0, pct.getLength());
-            msg_resposta = "Recebeu Mensagem";
-            
-            if (resposta.equals("inicio")){ // testando se a resposta é uma lista
-                while(!resposta.equals("fim")){ // para todas as mensagens até a última:
-                    soc.receive(pct); //recebe...
-                    resposta = new String(pct.getData(), 0, pct.getLength()); //...pega o conteúdo...
-                    System.out.println(resposta); //...mostra o conteúdo.
-                }
-            }
-        } 
-        catch(SocketTimeoutException time){
-            msg_resposta = "Tempo máximo de espera atingido";
-            return "er";
-        }
-        catch (Exception e) {
-            msg_resposta = "Não Foi possível receber mensagem";
-            return "er";
-        } finally {
-            System.out.println(msg_resposta);
-        }
-
-        soc.close();
-
-        return resposta;
-    }
-
-    private static void add() throws Exception {
-        Scanner entrada = new Scanner(System.in);
-        String adiciona = new String();
-        System.out.println("Digite as informacoes que deseja adicionar ao banco de dados na seguinte ordem:");
-        System.out.println("nome/email/endereco/complemento/cep/cidade/estado/email alternativo");
-        adiciona = entrada.next(); //guardar resultado na variável 'adiciona'
-        System.out.println("Mostrando resultado da variável adiciona:" + adiciona);
-        envia("a/" + adiciona);
-
-        if (recebe().equals("ok")) //receber uma resposta para dar o ok para o usuário
-        {
-            System.out.println("Dados cadastrados com sucesso!");
-        } else if (recebe().equals("er")) {
-            System.out.println("Erro: repita o procedimento.");
-        }
-    }
-
-    private static void modify() throws Exception {
-        Scanner entrada = new Scanner(System.in);
-        String modifica = new String();
-        System.out.println("Digite o código do contato, o dado e a informação que deseja alterar de acordo com a especificação abaixo:");
-        System.out.println("codigo/nome/email/endereco/complemento/cep/cidade/estado/email alternativo");
-        modifica = entrada.next();//guardar resultado na variável 'modifica' 
-
-        envia("m/" + modifica);
-
-        if (recebe().equals("ne"))//verificar se o cadastro existe (ne = não existe)
-        {
-            System.out.println("Cadastro não existente!");
-        } else if (recebe().equals("ok")) {
-            System.out.println("Cadastro alterado com sucesso!");//receber uma resposta para dar o ok para o usuário
-        } else if (recebe().equals("er")) {
-            System.out.println("Erro: repita o procedimento.");
-        }
-
-    }
-
-    private static void delete() throws Exception {
-        Scanner entrada = new Scanner(System.in);
-        String exclui = new String();
-        System.out.println("Digite o código do contato que deseja excluir:");
-        exclui = entrada.next();//guardar resultado na variável 'exclui'
-
-        envia("d/" + exclui);
-
-        if (recebe().equals("ne"))//verificar se o cadastro existe
-        {
-            System.out.println("Cadastro não existente!");
-        } else if (recebe().equals("ok")) {
-            System.out.println("Cadastro excluido com sucesso!");//receber uma resposta para dar o ok para o usuário
-        } else if (recebe().equals("er")) {
-            System.out.println("Erro: repita o procedimento.");
-        }
-    }
-
-    private static void consult() throws Exception {
-        Scanner entrada = new Scanner(System.in);
-        String consulta = new String();
-        System.out.println("Digite a cidade e o estado que deseja pesquisar:");
-        consulta = entrada.next();//guardar resultado na variável 'consulta'
-
-        envia("c/" + consulta);
-
-        if (recebe().equals("ne"))//verificar se o cadastro existe
-        {
-            System.out.println("Cadastro não existente!");
-        } else if (recebe().equals("er")) {
-            System.out.println("Erro: repita o procedimento.");
-        } else {
-            System.out.println("Resultado da pesquisa: " + recebe());
-        }
-    }
-
-    private static void list() throws Exception {
-        Scanner entrada = new Scanner(System.in);
-        String lista = new String();
-        System.out.println("Digite a cidade da qual deseja obter a lista de contatos de acordo com a especificação abaixo:");
-        System.out.println("cidade/estado");
-        lista = entrada.next();//guardar resultado na variável 'lista'
-
-        envia("l/" + lista);
-
-        if (recebe().equals("ne"))//verificar se o cadastro existe
-        {
-            System.out.println("Cadastro não existente!");
-        } else if (recebe().equals("er")) {
-            System.out.println("Erro: repita o procedimento.");
-        } else {
-            System.out.println("Mostrando resultado da pesquisa: " + recebe());
-        }
-    }
+    
 
 }

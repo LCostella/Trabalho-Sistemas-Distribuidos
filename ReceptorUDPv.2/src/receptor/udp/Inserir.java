@@ -28,8 +28,6 @@ public class Inserir {
         contato = new Contato();
         int i = 0;
         if(dados.get(i).equals("a")){ // Testa se for adição, se for, popula o objeto com os dados proximos da lista
-//            i++;
-//            contato.setCodigo((Integer.getInteger(dados.get(i))));
             i++;
             contato.setNome(dados.get(i));
             i++;
@@ -40,7 +38,7 @@ public class Inserir {
             contato.setComplemento(dados.get(i));
             i++;
             contato.setCep(getCep(dados.get(i), dados.get(i+1), dados.get(i+2)));// manda o cep e a cidade
-            i++;
+            i = i+3;
             contato.setEmailAlternativo(dados.get(i));
             
             InserirContato ic = new InserirContato();
