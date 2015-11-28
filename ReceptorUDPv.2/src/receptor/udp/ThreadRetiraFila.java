@@ -54,10 +54,9 @@ public class ThreadRetiraFila extends Thread{
             retira();
         }
     }
-    public void retira(){       
+    public synchronized void retira(){       
         DatagramPacket pct = fila.peek(); // Pego da fila, mas nao removo
         String msg = new String(pct.getData());
-        //processa
         System.out.println("Mensagem "+msg);// So pra teste
         msg = new String(fila.poll().getData()); // Retiro o datagrama da fila e guardo ele inteiro em uma string
         
@@ -104,9 +103,9 @@ public class ThreadRetiraFila extends Thread{
                 Alterar ic = new Alterar();
                 String resposta = "";
                 if(ic.alterar(dados)){
-                    resposta = "Alterado com sucesso!";
+                    resposta = "ok";
                 }else{
-                    resposta = "Falha ao alterar, por favor tente novamente!";
+                    resposta = "er";
                 }
                 RetornarCliente rc = new RetornarCliente();
                 try {
@@ -120,9 +119,9 @@ public class ThreadRetiraFila extends Thread{
                 Deletar ic = new Deletar();
                 String resposta = "";
                 if(ic.deletar(dados)){
-                    resposta = "Deletado com sucesso!";
+                    resposta = "ok";
                 }else{
-                    resposta = "Falha ao deletar, por favor tente novamente!";
+                    resposta = "er";
                 }
                 RetornarCliente rc = new RetornarCliente();
                 try {
