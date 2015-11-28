@@ -31,15 +31,15 @@ public class Inserir {
             i++;
             contato.setNome(dados.get(i));
             i++;
-            contato.setEmail(dados.get(i));
+            contato.setEmail(dados.get(i).trim());
             i++;
             contato.setEndereco(dados.get(i));
             i++;
             contato.setComplemento(dados.get(i));
             i++;
-            contato.setCep(getCep(dados.get(i), dados.get(i+1), dados.get(i+2)));// manda o cep e a cidade
+            contato.setCep(getCep(dados.get(i).trim(), dados.get(i+1), dados.get(i+2)));// manda o cep e a cidade
             i = i+3;
-            contato.setEmailAlternativo(dados.get(i));
+            contato.setEmailAlternativo(dados.get(i).trim());
             
             InserirContato ic = new InserirContato();
             if(ic.inserir(contato)){

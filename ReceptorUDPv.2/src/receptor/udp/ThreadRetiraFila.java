@@ -61,7 +61,7 @@ public class ThreadRetiraFila extends Thread{
         System.out.println("Mensagem "+msg);// So pra teste
         msg = new String(fila.poll().getData()); // Retiro o datagrama da fila e guardo ele inteiro em uma string
         
-        //msg = "c/1";
+        msg = "d/3";
         
         System.out.println("Retiro o datagrama da fila e guardo ele inteiro em uma string");
         String dado = new String(); // Instancio uma String para ir concatenando os caracteres
