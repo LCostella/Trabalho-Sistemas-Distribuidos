@@ -172,7 +172,7 @@ public class servidorRest {
        return null;
     }
 //            
-    @GET
+    @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/listContatoPorCidade")
