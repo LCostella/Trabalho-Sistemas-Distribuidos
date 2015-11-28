@@ -9,7 +9,6 @@ package receptor.udp;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.List;
 
 /**
@@ -28,10 +27,10 @@ public class RetornarCliente {
         int porta = 2010;
         byte data[] = new byte[1000];//verificar se tem que mudar no cliente
         data = msg.getBytes();
-        DatagramSocket soc2 = new DatagramSocket(porta);
-        DatagramPacket pac2 = new DatagramPacket(data, data.length, endereco, porta);
-        soc2.send(pac2);
-        soc2.close();
+        DatagramSocket soc = new DatagramSocket(porta);
+        DatagramPacket pac = new DatagramPacket(data, data.length, endereco, porta);
+        soc.send(pac);
+        soc.close();
     }
     
     /**

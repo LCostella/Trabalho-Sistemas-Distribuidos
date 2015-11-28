@@ -19,20 +19,10 @@ public class Emissor {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        
-        
-        try {
-            Receber r = new Receber();
-            r.receber();
-        } catch (Exception ex) {
-            Logger.getLogger(Emissor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         char op = 'o';
         Scanner entrada = new Scanner(System.in);
-        
-        
-                
+                        
         do {
             try {
                 System.out.println("-------- EMISSOR UDP ---------");

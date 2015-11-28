@@ -18,10 +18,7 @@ public class Consultar {
         int i = 0;
         if(dados.get(i).equals("c")){ // Testa se for consultar
             i++;
-
             BuscarContato ic = new BuscarContato();
-            //System.out.println("Dado : ["+dados.get(i)+"]");
-            //String string = new String(dados.get(i).trim());
             contato = ic.buscarContato(Integer.parseInt(dados.get(i).trim()));
         }
         return contato;

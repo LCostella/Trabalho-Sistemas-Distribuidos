@@ -6,7 +6,6 @@ package receptor.udp;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,15 +48,13 @@ public class ThreadInserirFila extends Thread{
             System.out.println("Instanciou Socket");
             DatagramSocket soc = new DatagramSocket(porta); // Instancia um DatagramSocket
             DatagramPacket pct = new DatagramPacket(data, data.length); // Instancia um DatagramPacket
-            soc.receive(pct);
             System.out.println("Aguarda mensagem");
+            soc.receive(pct);
             fila.add(pct);// recebeu e insere na fila
             System.out.println("Recebeu mensagem");
             soc.close(); // precisa verificar se pode dar close
             retirar = new ThreadRetiraFila(fila, "retirar");
             retirar.start();
-        //} catch (SocketException ex) {
-        //    Logger.getLogger(ThreadInserirFila.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ThreadInserirFila.class.getName()).log(Level.SEVERE, null, ex);
         }
