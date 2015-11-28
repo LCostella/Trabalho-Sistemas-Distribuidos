@@ -25,16 +25,22 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _InserirCepResponse_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "inserirCepResponse");
+    private final static QName _ListarContatoResponse_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "listarContatoResponse");
+    private final static QName _ListarCidade_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "listarCidade");
+    private final static QName _ListarContato_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "listarContato");
     private final static QName _BuscarCep_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "buscarCep");
+    private final static QName _AlterarContatoResponse_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "alterarContatoResponse");
     private final static QName _ExcluirContato_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "excluirContato");
     private final static QName _BuscarCidade_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "buscarCidade");
     private final static QName _InserirCidade_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "inserirCidade");
     private final static QName _BuscarCidadeResponse_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "buscarCidadeResponse");
     private final static QName _BuscarCepResponse_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "buscarCepResponse");
+    private final static QName _AlterarContato_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "alterarContato");
     private final static QName _InserirCep_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "inserirCep");
     private final static QName _ExcluirContatoResponse_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "excluirContatoResponse");
     private final static QName _InserirContato_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "inserirContato");
     private final static QName _InserirContatoResponse_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "inserirContatoResponse");
+    private final static QName _ListarCidadeResponse_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "listarCidadeResponse");
     private final static QName _BuscarContatoResponse_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "buscarContatoResponse");
     private final static QName _InserirCidadeResponse_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "inserirCidadeResponse");
     private final static QName _BuscarContato_QNAME = new QName("http://servicoSoap.trabalho.sistemas.distribuidos/", "buscarContato");
@@ -68,6 +74,14 @@ public class ObjectFactory {
      */
     public InserirContatoResponse createInserirContatoResponse() {
         return new InserirContatoResponse();
+    }
+
+    /**
+     * Create an instance of {@link AlterarContato }
+     * 
+     */
+    public AlterarContato createAlterarContato() {
+        return new AlterarContato();
     }
 
     /**
@@ -135,6 +149,38 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ListarCidadeResponse }
+     * 
+     */
+    public ListarCidadeResponse createListarCidadeResponse() {
+        return new ListarCidadeResponse();
+    }
+
+    /**
+     * Create an instance of {@link ListarCidade }
+     * 
+     */
+    public ListarCidade createListarCidade() {
+        return new ListarCidade();
+    }
+
+    /**
+     * Create an instance of {@link ListarContato }
+     * 
+     */
+    public ListarContato createListarContato() {
+        return new ListarContato();
+    }
+
+    /**
+     * Create an instance of {@link ListarContatoResponse }
+     * 
+     */
+    public ListarContatoResponse createListarContatoResponse() {
+        return new ListarContatoResponse();
+    }
+
+    /**
      * Create an instance of {@link InserirCepResponse }
      * 
      */
@@ -148,6 +194,14 @@ public class ObjectFactory {
      */
     public ExcluirContato createExcluirContato() {
         return new ExcluirContato();
+    }
+
+    /**
+     * Create an instance of {@link AlterarContatoResponse }
+     * 
+     */
+    public AlterarContatoResponse createAlterarContatoResponse() {
+        return new AlterarContatoResponse();
     }
 
     /**
@@ -192,12 +246,48 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListarContatoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", name = "listarContatoResponse")
+    public JAXBElement<ListarContatoResponse> createListarContatoResponse(ListarContatoResponse value) {
+        return new JAXBElement<ListarContatoResponse>(_ListarContatoResponse_QNAME, ListarContatoResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListarCidade }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", name = "listarCidade")
+    public JAXBElement<ListarCidade> createListarCidade(ListarCidade value) {
+        return new JAXBElement<ListarCidade>(_ListarCidade_QNAME, ListarCidade.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListarContato }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", name = "listarContato")
+    public JAXBElement<ListarContato> createListarContato(ListarContato value) {
+        return new JAXBElement<ListarContato>(_ListarContato_QNAME, ListarContato.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link BuscarCep }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", name = "buscarCep")
     public JAXBElement<BuscarCep> createBuscarCep(BuscarCep value) {
         return new JAXBElement<BuscarCep>(_BuscarCep_QNAME, BuscarCep.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AlterarContatoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", name = "alterarContatoResponse")
+    public JAXBElement<AlterarContatoResponse> createAlterarContatoResponse(AlterarContatoResponse value) {
+        return new JAXBElement<AlterarContatoResponse>(_AlterarContatoResponse_QNAME, AlterarContatoResponse.class, null, value);
     }
 
     /**
@@ -246,6 +336,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AlterarContato }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", name = "alterarContato")
+    public JAXBElement<AlterarContato> createAlterarContato(AlterarContato value) {
+        return new JAXBElement<AlterarContato>(_AlterarContato_QNAME, AlterarContato.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InserirCep }{@code >}}
      * 
      */
@@ -279,6 +378,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", name = "inserirContatoResponse")
     public JAXBElement<InserirContatoResponse> createInserirContatoResponse(InserirContatoResponse value) {
         return new JAXBElement<InserirContatoResponse>(_InserirContatoResponse_QNAME, InserirContatoResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListarCidadeResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", name = "listarCidadeResponse")
+    public JAXBElement<ListarCidadeResponse> createListarCidadeResponse(ListarCidadeResponse value) {
+        return new JAXBElement<ListarCidadeResponse>(_ListarCidadeResponse_QNAME, ListarCidadeResponse.class, null, value);
     }
 
     /**

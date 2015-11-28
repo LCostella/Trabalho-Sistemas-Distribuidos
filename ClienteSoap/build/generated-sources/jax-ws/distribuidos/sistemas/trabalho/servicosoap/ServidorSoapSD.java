@@ -27,6 +27,48 @@ public interface ServidorSoapSD {
 
     /**
      * 
+     * @return
+     *     returns java.util.List<distribuidos.sistemas.trabalho.servicosoap.Cidade>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listarCidade", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarCidade")
+    @ResponseWrapper(localName = "listarCidadeResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarCidadeResponse")
+    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarCidadeRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarCidadeResponse")
+    public List<Cidade> listarCidade();
+
+    /**
+     * 
+     * @param cidade
+     * @return
+     *     returns java.util.List<distribuidos.sistemas.trabalho.servicosoap.Contato>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listarContato", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarContato")
+    @ResponseWrapper(localName = "listarContatoResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarContatoResponse")
+    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarContatoRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarContatoResponse")
+    public List<Contato> listarContato(
+        @WebParam(name = "cidade", targetNamespace = "")
+        Cidade cidade);
+
+    /**
+     * 
+     * @param cep
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "inserirCep", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirCep")
+    @ResponseWrapper(localName = "inserirCepResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirCepResponse")
+    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirCepRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirCepResponse")
+    public boolean inserirCep(
+        @WebParam(name = "cep", targetNamespace = "")
+        Cep cep);
+
+    /**
+     * 
      * @param cep
      * @return
      *     returns distribuidos.sistemas.trabalho.servicosoap.Cep
@@ -39,6 +81,21 @@ public interface ServidorSoapSD {
     public Cep buscarCep(
         @WebParam(name = "cep", targetNamespace = "")
         int cep);
+
+    /**
+     * 
+     * @param codigo
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "excluirContato", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ExcluirContato")
+    @ResponseWrapper(localName = "excluirContatoResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ExcluirContatoResponse")
+    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/excluirContatoRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/excluirContatoResponse")
+    public boolean excluirContato(
+        @WebParam(name = "codigo", targetNamespace = "")
+        int codigo);
 
     /**
      * 
@@ -59,21 +116,6 @@ public interface ServidorSoapSD {
      * 
      * @param codigo
      * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "excluirContato", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ExcluirContato")
-    @ResponseWrapper(localName = "excluirContatoResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ExcluirContatoResponse")
-    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/excluirContatoRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/excluirContatoResponse")
-    public boolean excluirContato(
-        @WebParam(name = "codigo", targetNamespace = "")
-        int codigo);
-
-    /**
-     * 
-     * @param codigo
-     * @return
      *     returns distribuidos.sistemas.trabalho.servicosoap.Contato
      */
     @WebMethod
@@ -84,36 +126,6 @@ public interface ServidorSoapSD {
     public Contato buscarContato(
         @WebParam(name = "codigo", targetNamespace = "")
         int codigo);
-
-    /**
-     * 
-     * @param cidade
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "inserirCidade", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirCidade")
-    @ResponseWrapper(localName = "inserirCidadeResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirCidadeResponse")
-    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirCidadeRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirCidadeResponse")
-    public boolean inserirCidade(
-        @WebParam(name = "cidade", targetNamespace = "")
-        Cidade cidade);
-
-    /**
-     * 
-     * @param cidade
-     * @return
-     *     returns java.util.List<distribuidos.sistemas.trabalho.servicosoap.Contato>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listarContato", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarContato")
-    @ResponseWrapper(localName = "listarContatoResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarContatoResponse")
-    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarContatoRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarContatoResponse")
-    public List<Contato> listarContato(
-        @WebParam(name = "cidade", targetNamespace = "")
-        Cidade cidade);
 
     /**
      * 
@@ -150,29 +162,17 @@ public interface ServidorSoapSD {
 
     /**
      * 
-     * @return
-     *     returns java.util.List<distribuidos.sistemas.trabalho.servicosoap.Cidade>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listarCidade", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarCidade")
-    @ResponseWrapper(localName = "listarCidadeResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.ListarCidadeResponse")
-    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarCidadeRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/listarCidadeResponse")
-    public List<Cidade> listarCidade();
-
-    /**
-     * 
-     * @param cep
+     * @param cidade
      * @return
      *     returns boolean
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "inserirCep", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirCep")
-    @ResponseWrapper(localName = "inserirCepResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirCepResponse")
-    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirCepRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirCepResponse")
-    public boolean inserirCep(
-        @WebParam(name = "cep", targetNamespace = "")
-        Cep cep);
+    @RequestWrapper(localName = "inserirCidade", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirCidade")
+    @ResponseWrapper(localName = "inserirCidadeResponse", targetNamespace = "http://servicoSoap.trabalho.sistemas.distribuidos/", className = "distribuidos.sistemas.trabalho.servicosoap.InserirCidadeResponse")
+    @Action(input = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirCidadeRequest", output = "http://servicoSoap.trabalho.sistemas.distribuidos/ServidorSoapSD/inserirCidadeResponse")
+    public boolean inserirCidade(
+        @WebParam(name = "cidade", targetNamespace = "")
+        Cidade cidade);
 
 }
