@@ -25,20 +25,20 @@ function SwitchableGridController($scope, $http){
                 nome: ''
             };
         
-//        $scope.buscaRest = function (){
-//            $http({ url: '//localhost:18263/ServicoREST/webresources/Rest/listContatoPorCidade',
-//                    method: "PUT",
-//                    headers: {'Content-type': 'application/json'},
-//                    params: { codigo:$scope.codigo, estado:$scope.estado, nome:$scope.nome }
-//            }).success(function (data) {
-//                console.log(data);
-//                $scope.items.nome = data[0].nome;
-//                $scope.items.codigo = data[0].codigo;
-//                $scope.items.email = data[0].email;
-//                //$scope.mostraAbbasRest.push($scope.items);
-//            }).error(function (data) {
-//            });
-//        };
+        $scope.buscaContatoPorCidade = function (){
+            $http({ url: '//localhost:18263/ServicoREST/webresources/Rest/listContatoPorCidade',
+                    method: "GET",
+                    headers: {'Content-type': 'application/json'},
+                    params: { codigo:$scope.codigo, estado:$scope.estado, nome:$scope.nome }
+            }).success(function (data) {
+                console.log(data);
+                $scope.items.nome = data[0].nome;
+                $scope.items.codigo = data[0].codigo;
+                $scope.items.email = data[0].email;
+                //$scope.mostraAbbasRest.push($scope.items);
+            }).error(function (data) {
+            });
+        };
         
         $scope.buscarContato = function (){
             $http({ url: '//localhost:18263/ServicoREST/webresources/Rest/buscarContato',
