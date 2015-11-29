@@ -17,10 +17,11 @@ public class ListarCidade {
         String lista = new String();
         System.out.println("Digite a cidade da qual deseja obter a lista de contatos de acordo com a especificação abaixo:");
         System.out.println("cidade/estado");
-        lista = entrada.next();//guardar resultado na variável 'lista'
+        lista = entrada.nextLine();//guardar resultado na variável 'lista'
         
+        lista ="l/".concat(lista);
         Enviar e = new Enviar();
-        e.envia("l/" + lista);
+        e.envia(lista);
         
     }
     

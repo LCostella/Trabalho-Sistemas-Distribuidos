@@ -27,10 +27,15 @@ public class Receber {
             soc.receive(pct);
             msg = new String(pct.getData());
             
-            if (msg.equals("inicio")) { // testando se a resposta é uma lista (SE FOR VAI MOSTRAR AQUI MESMO)
-                while (!msg.equals("fim")) { // para todas as mensagens até a última:
+            if (msg.trim().equals("inicio")) { // testando se a resposta é uma lista (SE FOR VAI MOSTRAR AQUI MESMO)
+                while (true) { // para todas as mensagens até a última:
+                    data = new byte[1000];
+                    pct = new DatagramPacket(data, data.length);
                     soc.receive(pct); //recebe...
                     msg = new String(pct.getData()); //...pega o conteúdo...
+                    if(msg.trim().equals("fim")){
+                        break;
+                    }
                     System.out.println(msg); //...mostra o conteúdo.
                 }
             }else{

@@ -16,7 +16,7 @@ public class Consultar {
         Scanner entrada = new Scanner(System.in);
         String consulta = new String();
         System.out.println("Digite a cidade e o estado que deseja pesquisar:");
-        consulta = entrada.next();//guardar resultado na variável 'consulta'
+        consulta = entrada.nextLine();//guardar resultado na variável 'consulta'
         
         Enviar e = new Enviar();
         e.envia("c/" + consulta);

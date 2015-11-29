@@ -17,7 +17,7 @@ public class Modificar {
         String modifica = new String();
         System.out.println("Digite o código do contato, o dado e a informação que deseja alterar de acordo com a especificação abaixo:");
         System.out.println("codigo/nome/email/endereco/complemento/cep/cidade/estado/email alternativo");
-        modifica = entrada.next();//guardar resultado na variável 'modifica' 
+        modifica = entrada.nextLine();//guardar resultado na variável 'modifica' 
         
         Enviar e = new Enviar();
         e.envia("m/" + modifica);        

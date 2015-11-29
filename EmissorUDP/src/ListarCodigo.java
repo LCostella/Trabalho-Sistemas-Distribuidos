@@ -16,7 +16,7 @@ public class ListarCodigo {
         Scanner entrada = new Scanner(System.in);
         String lista = new String();
         System.out.println("Digite o código do qual deseja obter a lista de contatos:");
-        lista = entrada.next();//guardar resultado na variável 'lista'
+        lista = entrada.nextLine();//guardar resultado na variável 'lista'
         
         Enviar e = new Enviar();
         e.envia("lc/" + lista);
