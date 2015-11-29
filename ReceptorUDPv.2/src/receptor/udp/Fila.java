@@ -15,7 +15,7 @@ import java.util.Queue;
  */
 public class Fila {
    public Queue<DatagramPacket> fila;  // definindo um HashMap (MAPA) para armazenar os valores do contador  
-   public boolean free;
+
    
    public Fila(){
        fila = new LinkedList<>();
@@ -33,7 +33,5 @@ public class Fila {
              fila.add(pct);
          }
    }
-   public synchronized boolean free(){
-       return true;
-   }
+
 }
