@@ -28,10 +28,10 @@ public class RetornarCliente {
         int porta = 2010;
         byte data[] = new byte[1000];//verificar se tem que mudar no cliente
         data = msg.getBytes();
-        DatagramSocket soc = new DatagramSocket(porta);
-        DatagramPacket pac = new DatagramPacket(data, data.length, endereco, porta);
-        soc.send(pac);
-        soc.close();
+        DatagramSocket soc2 = new DatagramSocket(porta);
+        DatagramPacket pac2 = new DatagramPacket(data, data.length, endereco, porta);
+        soc2.send(pac2);
+        soc2.close();
     }
     
     /**
@@ -39,11 +39,11 @@ public class RetornarCliente {
     * @param lista lista de mensagens
     */
     public void responder(InetAddress endereco, List<String> lista) throws Exception{
-        
+        responder(endereco, "inicio");
         for(String s : lista){
             responder(endereco, s);
         }
-        responder(endereco, "end");
+        responder(endereco, "fim");
 
     }
 }

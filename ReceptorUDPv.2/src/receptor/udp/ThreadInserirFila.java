@@ -32,7 +32,7 @@ public class ThreadInserirFila extends Thread{
         this.fila = fila;
     }
     
-    public void run(){
+    public synchronized void run(){
         if(fila == null){
             System.out.println("fila é null");
             return;
@@ -45,7 +45,7 @@ public class ThreadInserirFila extends Thread{
     public void inserir(){
         try {
             int porta = 2010;
-            byte data[] = new byte[400];
+            byte data[] = new byte[1000];
             System.out.println("Instanciou Socket");
             DatagramSocket soc = new DatagramSocket(porta); // Instancia um DatagramSocket
             DatagramPacket pct = new DatagramPacket(data, data.length); // Instancia um DatagramPacket
