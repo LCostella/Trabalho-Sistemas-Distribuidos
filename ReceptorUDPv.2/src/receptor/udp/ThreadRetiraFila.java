@@ -54,7 +54,6 @@ public class ThreadRetiraFila extends Thread{
             DatagramPacket pct = filaa.retirar();
             if(pct != null){
                 retira(pct);
-                notifyAll();
             }            
         }
     }

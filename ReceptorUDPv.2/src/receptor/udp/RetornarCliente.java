@@ -27,7 +27,7 @@ public class RetornarCliente {
         int porta = 2010;
         byte data[] = new byte[1000];//verificar se tem que mudar no cliente
         data = msg.getBytes();
-        DatagramSocket soc = new DatagramSocket(porta);
+        DatagramSocket soc = new DatagramSocket();
         DatagramPacket pac = new DatagramPacket(data, data.length, endereco, porta);
         soc.send(pac);
         soc.close();
