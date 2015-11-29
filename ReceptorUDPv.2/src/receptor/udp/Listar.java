@@ -39,9 +39,9 @@ public class Listar {
                 lc = bc.listar(cidade); // Todos os contatos que preciso mandar estão aqui
                 
                 for(Contato c : lc){
-                    String aux = c.getCodigo()+" "+c.getNome()+" "+c.getEmail()+ " \n";
+                    String aux = c.getCodigo()+" "+c.getNome()+" "+c.getEmail();
                     System.out.println(aux);
-                    System.out.println("Entra aqui no listar");
+                    //System.out.println("Entra aqui no listar");
                     retorno.add(aux);
                 }
             }

@@ -139,7 +139,7 @@ public class ThreadRetiraFila extends Thread{
         }
 
         if(dados.get(0).equals("l")){ // Testa se for listar e guarda a cidade a qual deseja rceeber os contatos.
-            List<String> lista = new ArrayList<>();
+            List<String> lista;
             Listar listar = new Listar();
             RetornarCliente rc = new RetornarCliente();
             try {
