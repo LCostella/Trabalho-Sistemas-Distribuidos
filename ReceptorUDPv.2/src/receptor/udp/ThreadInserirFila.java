@@ -55,9 +55,9 @@ public class ThreadInserirFila extends Thread{
             int porta = 2010;
             byte data[] = new byte[1000];
             System.out.println("Instanciou Socket");
+            System.out.println("Aguarda mensagem");
             DatagramSocket soc = new DatagramSocket(porta); // Instancia um DatagramSocket
             DatagramPacket pct = new DatagramPacket(data, data.length); // Instancia um DatagramPacket
-            System.out.println("Aguarda mensagem");
             soc.receive(pct);
             filaa.inserir(pct);// recebeu e insere na fila
             System.out.println("Recebeu mensagem");

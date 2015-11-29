@@ -60,7 +60,7 @@ public class ThreadRetiraFila extends Thread{
     public void retira(DatagramPacket pct){       
 
         String msg = new String(pct.getData());
-        System.out.println("retirou da fila");
+        System.out.println("retirou da fila: " + msg);
         String dado = new String(); // Instancio uma String para ir concatenando os caracteres
         for(int i=0; i<msg.length(); i++){ 
             char c = msg.charAt(i); 
@@ -149,6 +149,6 @@ public class ThreadRetiraFila extends Thread{
                 Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        dados.clear();
     }
 }
