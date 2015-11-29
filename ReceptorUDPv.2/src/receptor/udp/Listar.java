@@ -41,9 +41,28 @@ public class Listar {
                     String aux = c.getCodigo()+" "+c.getNome()+" "+c.getEmail();
                     retorno.add(aux);
                 }
-                retorno.add("fim");
             }
         }
+        return retorno;
+    }
+    public List<String> listar(String dados) throws Exception{
+        contato = new Contato();
+        List<String> retorno = new ArrayList<>();
+        int i = 0;
+            
+        BuscarCidade ic = new BuscarCidade();
+        cidade = ic.buscarCidade(Integer.parseInt(dados.trim()));
+        BuscarContato bc = new BuscarContato();
+        List<Contato> lc;
+        if(cidade !=null){
+            lc = bc.listar(cidade); // Todos os contatos que preciso mandar estão aqui
+
+            for(Contato c : lc){
+                String aux = c.getCodigo()+" "+c.getNome()+" "+c.getEmail();
+                retorno.add(aux);
+            }
+        }
+        
         return retorno;
     }
 }

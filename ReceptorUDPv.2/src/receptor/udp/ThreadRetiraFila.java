@@ -72,6 +72,9 @@ public class ThreadRetiraFila extends Thread{
             } 
         }
         dados.add(dado);
+        for(String a : dados ){
+            System.out.println(a);
+        }
   
         if(dados.get(0).equals("a")){
             Inserir ic = new Inserir();
@@ -128,10 +131,15 @@ public class ThreadRetiraFila extends Thread{
             Contato contato = new Contato();
             try {
                 contato = ic.consultar(dados);
-                resposta = contato.getCodigo()+" "+contato.getNome()+" "+contato.getEmail()+" "+contato.getEndereco()+
-                           " "+ contato.getComplemento()+" "+contato.getEmailAlternativo() + " "+contato.getCep().getCep()+" "
-                        +contato.getCep().getCidade().getNome()+" "+contato.getCep().getCidade().getEstado();
+                if(contato == null){
+                    resposta = "Contato nao encontrado";
+                }else{
+                    resposta = contato.getCodigo()+" "+contato.getNome()+" "+contato.getEmail()+" "+contato.getEndereco()+
+                            " "+ contato.getComplemento()+" "+contato.getEmailAlternativo() + " "+contato.getCep().getCep()+" "
+                            +contato.getCep().getCidade().getNome()+" "+contato.getCep().getCidade().getEstado();
+                }
                 System.out.println("Resposta para cliente : "+resposta);
+                
                 RetornarCliente rc = new RetornarCliente();
                 rc.responder(pct.getAddress(), resposta);
             } catch (Exception ex) {
@@ -145,7 +153,27 @@ public class ThreadRetiraFila extends Thread{
             RetornarCliente rc = new RetornarCliente();
             try {
                 lista = listar.listar(dados);
-                rc.responder(pct.getAddress(), lista);
+                if(lista.isEmpty()){
+                    rc.responder(pct.getAddress(), "Nenhum contato registrado para esta cidade");
+                }else{
+                    rc.responder(pct.getAddress(), lista);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if(dados.get(0).equals("lc")){ // Testa se for listar e guarda a cidade a qual deseja rceeber os contatos.
+            List<String> lista;
+            Listar listar = new Listar();
+            RetornarCliente rc = new RetornarCliente();
+            try {
+                System.out.println(dados.get(1));
+                lista = listar.listar(dados.get(1));
+                if(lista.isEmpty()){
+                    rc.responder(pct.getAddress(), "Nenhum contato registrado para esta cidade");
+                }else{
+                    rc.responder(pct.getAddress(), lista);
+                }
             } catch (Exception ex) {
                 Logger.getLogger(ThreadRetiraFila.class.getName()).log(Level.SEVERE, null, ex);
             }

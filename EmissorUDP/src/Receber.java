@@ -23,7 +23,7 @@ public class Receber {
         String msg;
         try {   
             System.out.println("Aguardando mensagem... (tempo máximo de espera 1 minuto)");
-            soc.setSoTimeout(600000);
+            soc.setSoTimeout(60000);
             soc.receive(pct);
             msg = new String(pct.getData());
             
