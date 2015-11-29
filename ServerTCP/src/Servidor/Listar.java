@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package receptor.udp;
+package Servidor;
 
 import distribuidos.sistemas.trabalho.classes.Cidade;
 import distribuidos.sistemas.trabalho.classes.Contato;
@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author Johni
+ * @author Christian
  */
 public class Listar {
     private Contato contato;
@@ -26,9 +26,10 @@ public class Listar {
         int i = 0;
         if(dados.get(i).equals("l")){ // Testa se for consultar
             i++;
-            String nome = new String(dados.get(i).trim());
+            String nome = new String(dados.get(i));
             i++;
-            String uf = new String(dados.get(i).trim());
+            String uf = new String(dados.get(i));
+            i++;
             
             BuscarCidade ic = new BuscarCidade();
             cidade = ic.buscarCidade(nome, uf);
@@ -38,10 +39,9 @@ public class Listar {
                 lc = bc.listar(cidade); // Todos os contatos que preciso mandar estão aqui
                 
                 for(Contato c : lc){
-                    String aux = c.getCodigo()+" "+c.getNome()+" "+c.getEmail();
+                    String aux = c.getCodigo()+" "+c.getNome()+" "+c.getEmail()+ " \n";
                     retorno.add(aux);
                 }
-                retorno.add("fim");
             }
         }
         return retorno;

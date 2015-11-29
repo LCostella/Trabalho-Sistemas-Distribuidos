@@ -17,7 +17,7 @@ public class Adicionar {
         String adiciona = new String();
         System.out.println("Digite as informacoes que deseja adicionar ao banco de dados na seguinte ordem:");
         System.out.println("nome/email/endereco/complemento/cep/cidade/estado/email alternativo");
-        adiciona = entrada.next(); //guardar resultado na variável 'adiciona'
+        adiciona = entrada.nextLine(); //guardar resultado na variável 'adiciona'
         System.out.println("Mostrando resultado da variável adiciona:" + adiciona);
         
         Enviar e = new Enviar();

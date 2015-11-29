@@ -74,6 +74,7 @@ public class Inserir {
                         System.out.println("Erro ao cadastrar cidade!");
                         return null;
                     }
+                    System.out.println("inseriu cidade nova");
                 }
                 //cria novo cep e adiciona a cidade
                 cep = new Cep();
@@ -84,6 +85,7 @@ public class Inserir {
                     System.out.println("Erro ao cadastrar cep!");
                     return null;
                 }
+                System.out.println("inseriu cep novo");
             }
             return cep;
         } catch (SQLException ex) {

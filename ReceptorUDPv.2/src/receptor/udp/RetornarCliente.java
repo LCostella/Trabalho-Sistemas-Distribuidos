@@ -9,7 +9,6 @@ package receptor.udp;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.List;
 
 /**
@@ -23,12 +22,11 @@ public class RetornarCliente {
     * @param msg mensagem
     */
     public void responder(InetAddress endereco, String msg) throws Exception{
-        System.out.println("Respondendo");
-        System.out.println("endereco "+ endereco.getHostAddress());
+        System.out.println("Respondendo: "+ msg);
         int porta = 2010;
         byte data[] = new byte[1000];//verificar se tem que mudar no cliente
         data = msg.getBytes();
-        DatagramSocket soc = new DatagramSocket(porta);
+        DatagramSocket soc = new DatagramSocket(2001);
         DatagramPacket pac = new DatagramPacket(data, data.length, endereco, porta);
         soc.send(pac);
         soc.close();
@@ -39,11 +37,11 @@ public class RetornarCliente {
     * @param lista lista de mensagens
     */
     public void responder(InetAddress endereco, List<String> lista) throws Exception{
-        
+        responder(endereco, "inicio");
         for(String s : lista){
             responder(endereco, s);
         }
-        responder(endereco, "end");
+        responder(endereco, "fim");
 
     }
 }

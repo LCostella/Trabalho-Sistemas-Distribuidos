@@ -16,7 +16,7 @@ public class Deletar {
         Scanner entrada = new Scanner(System.in);
         String exclui = new String();
         System.out.println("Digite o código do contato que deseja excluir:");
-        exclui = entrada.next();//guardar resultado na variável 'exclui'
+        exclui = entrada.nextLine();//guardar resultado na variável 'exclui'
         
         Enviar e = new Enviar();
         e.envia("d/" + exclui);

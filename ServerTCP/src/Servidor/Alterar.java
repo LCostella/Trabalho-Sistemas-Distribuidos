@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package receptor.udp;
+package Servidor;
 
 import distribuidos.sistemas.trabalho.classes.Cep;
 import distribuidos.sistemas.trabalho.classes.Cidade;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Johni
+ * @author Christian
  */
 public class Alterar {
      private Contato contato;
@@ -29,23 +29,19 @@ public class Alterar {
         int i = 0;
         if(dados.get(i).equals("m")){ // Testa se for alterar
             i++;
-            if(dados.get(i) != null){
-                contato.setCodigo((Integer.parseInt(dados.get(i).trim())));
-            }else{
-                System.out.println("null");
-            }
+            int codigo; 
+            codigo = Integer.parseInt(dados.get(i));
+            contato.setCodigo(codigo);
             i++;
             contato.setNome(dados.get(i));
             i++;
-            contato.setEmail(dados.get(i).trim());
+            contato.setEmail(dados.get(i));
             i++;
             contato.setEndereco(dados.get(i));
             i++;
             contato.setComplemento(dados.get(i));
             i++;
-            contato.setCep(getCep(dados.get(i).trim(), dados.get(i+1), dados.get(i+2)));// manda o cep e a cidade
-            i = i+3;
-            contato.setEmailAlternativo(dados.get(i).trim());
+            contato.setCep(getCep(dados.get(i), dados.get(i+1), dados.get(i+2)));// manda o cep e a cidade
 
             AlterarContato ic = new AlterarContato();
             if(ic.alterar(contato)){
@@ -90,7 +86,6 @@ public class Alterar {
                     return null;
                 }
             }
-            System.out.println(cep.getCep()+ " "+cep.getCidade().getNome());
             return cep;
         } catch (SQLException ex) {
             Logger.getLogger(Inserir.class.getName()).log(Level.SEVERE, null, ex);

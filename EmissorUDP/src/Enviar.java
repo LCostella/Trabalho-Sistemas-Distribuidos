@@ -24,6 +24,7 @@ public class Enviar {
         DatagramPacket pct = new DatagramPacket(data, data.length, address, porta);
 
         soc.send(pct);
+        soc.close();
         
     }
     

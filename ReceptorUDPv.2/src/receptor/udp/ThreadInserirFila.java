@@ -6,7 +6,6 @@ package receptor.udp;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +17,16 @@ import java.util.logging.Logger;
 public class ThreadInserirFila extends Thread{
     private Queue<DatagramPacket> fila;
     private static ThreadRetiraFila retirar;
+    private Fila filaa;
 
+    public Fila getFilaa() {
+        return filaa;
+    }
+
+    public void setFilaa(Fila filaa) {
+        this.filaa = filaa;
+    }
+    
     public Queue<DatagramPacket> getFila() {
         return fila;
     }
@@ -27,37 +35,35 @@ public class ThreadInserirFila extends Thread{
         this.fila = fila;
     }
 
-    public ThreadInserirFila(Queue<DatagramPacket> fila, String name) {
+    public ThreadInserirFila(Fila fila, String name) {
         super(name);
-        this.fila = fila;
+        this.filaa = fila;
     }
     
     public void run(){
-        if(fila == null){
+        if(filaa == null){
             System.out.println("fila é null");
             return;
         }
         //escuta a porta e insere na fila
-        while(fila.isEmpty()){
+        while(true){
             inserir();
         }
     }
     public void inserir(){
         try {
             int porta = 2010;
-            byte data[] = new byte[400];
+            byte data[] = new byte[1000];
             System.out.println("Instanciou Socket");
+            System.out.println("Aguarda mensagem");
             DatagramSocket soc = new DatagramSocket(porta); // Instancia um DatagramSocket
             DatagramPacket pct = new DatagramPacket(data, data.length); // Instancia um DatagramPacket
             soc.receive(pct);
-            System.out.println("Aguarda mensagem");
-            fila.add(pct);// recebeu e insere na fila
+            filaa.inserir(pct);// recebeu e insere na fila
             System.out.println("Recebeu mensagem");
             soc.close(); // precisa verificar se pode dar close
-            retirar = new ThreadRetiraFila(fila, "retirar");
-            retirar.start();
-        //} catch (SocketException ex) {
-        //    Logger.getLogger(ThreadInserirFila.class.getName()).log(Level.SEVERE, null, ex);
+            //retirar = new ThreadRetiraFila(fila, "retirar");
+            //retirar.start();
         } catch (IOException ex) {
             Logger.getLogger(ThreadInserirFila.class.getName()).log(Level.SEVERE, null, ex);
         }
