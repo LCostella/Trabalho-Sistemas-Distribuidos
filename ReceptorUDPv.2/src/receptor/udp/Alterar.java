@@ -90,6 +90,7 @@ public class Alterar {
                     return null;
                 }
             }
+            System.out.println(cep.getCep()+ " "+cep.getCidade().getNome());
             return cep;
         } catch (SQLException ex) {
             Logger.getLogger(Inserir.class.getName()).log(Level.SEVERE, null, ex);

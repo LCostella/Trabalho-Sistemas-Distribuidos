@@ -72,7 +72,7 @@ public class ThreadRetiraFila extends Thread{
             } 
         }
         dados.add(dado);
-
+  
         if(dados.get(0).equals("a")){
             Inserir ic = new Inserir();
             String resposta = "";
@@ -129,7 +129,8 @@ public class ThreadRetiraFila extends Thread{
             try {
                 contato = ic.consultar(dados);
                 resposta = contato.getCodigo()+" "+contato.getNome()+" "+contato.getEmail()+" "+contato.getEndereco()+
-                           " "+ contato.getComplemento()+" "+contato.getEmailAlternativo();
+                           " "+ contato.getComplemento()+" "+contato.getEmailAlternativo() + " "+contato.getCep().getCep()+" "
+                        +contato.getCep().getCidade().getNome()+" "+contato.getCep().getCidade().getEstado();
                 System.out.println("Resposta para cliente : "+resposta);
                 RetornarCliente rc = new RetornarCliente();
                 rc.responder(pct.getAddress(), resposta);
