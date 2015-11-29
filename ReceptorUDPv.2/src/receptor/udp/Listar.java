@@ -35,15 +35,13 @@ public class Listar {
             BuscarContato bc = new BuscarContato();
             List<Contato> lc;
             if(cidade !=null){
-                System.out.println("Entro");
                 lc = bc.listar(cidade); // Todos os contatos que preciso mandar estão aqui
                 
                 for(Contato c : lc){
                     String aux = c.getCodigo()+" "+c.getNome()+" "+c.getEmail();
-                    System.out.println(aux);
-                    //System.out.println("Entra aqui no listar");
                     retorno.add(aux);
                 }
+                retorno.add("fim");
             }
         }
         return retorno;
