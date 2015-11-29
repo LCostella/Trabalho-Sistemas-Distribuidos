@@ -19,8 +19,17 @@ import java.util.logging.Logger;
  */
 public class ThreadRetiraFila extends Thread{
     private Queue<DatagramPacket> fila;
-    List<String> dados = new ArrayList<>();
-    Contato contato = new Contato();
+    private List<String> dados = new ArrayList<>();
+    private Contato contato = new Contato();
+    private Fila filaa;
+
+    public Fila getFilaa() {
+        return filaa;
+    }
+
+    public void setFilaa(Fila filaa) {
+        this.filaa = filaa;
+    }
 
     public Queue<DatagramPacket> getFila() {
         return fila;
@@ -30,25 +39,27 @@ public class ThreadRetiraFila extends Thread{
         this.fila = fila;
     }
 
-    public ThreadRetiraFila(Queue<DatagramPacket> fila, String name) {
+    public ThreadRetiraFila(Fila fila, String name) {
         super(name);
-        this.fila = fila;
+        this.filaa = fila;
     }
     
-    public synchronized void run(){
-        if(fila == null){
+    public void run(){
+        if(filaa == null){
             System.out.println("fila é null");
             return;
         }
         //escuta a porta e retira na fila
         while(true){
-            if(!fila.isEmpty()){
-                retira();
+            DatagramPacket pct = filaa.retirar();
+            if(pct != null){
+                retira(pct);
+                notifyAll();
             }            
         }
     }
-    public synchronized void retira(){       
-        DatagramPacket pct = fila.poll(); 
+    public void retira(DatagramPacket pct){       
+
         String msg = new String(pct.getData());
         System.out.println("retirou da fila");
         String dado = new String(); // Instancio uma String para ir concatenando os caracteres

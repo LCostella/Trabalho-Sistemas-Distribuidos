@@ -24,10 +24,12 @@ public class ReceptorUDP {
     
     public static void main(String[] args) {
         //inicia a fila e as threads
-        fila = new LinkedList<>();
+        //fila = new LinkedList<>();
+        Fila fila = new Fila();
         inserir = new ThreadInserirFila(fila, "inserir");
         retirar = new ThreadRetiraFila(fila, "retirar");
         inserir.start();
         retirar.start();
+        System.out.println("iniciou as threads");
     }  
 }

@@ -15,15 +15,15 @@ import java.net.SocketTimeoutException;
 public class Receber {
 
     public String receber() throws Exception {
-        try {
-            int porta = 2010;
-            byte data[] = new byte[1000];
-            DatagramSocket soc = new DatagramSocket(porta);
-            DatagramPacket pct = new DatagramPacket(data, data.length);
-            String msg;
-            
+        
+        int porta = 2010;
+        byte data[] = new byte[1000];
+        DatagramSocket soc = new DatagramSocket(porta);
+        DatagramPacket pct = new DatagramPacket(data, data.length);
+        String msg;
+        try {   
             System.out.println("Aguardando mensagem... (tempo máximo de espera 1 minuto)");
-            soc.setSoTimeout(600);
+            soc.setSoTimeout(6000);
             soc.receive(pct);
             msg = new String(pct.getData());
             
@@ -37,12 +37,13 @@ public class Receber {
                 System.out.println("Resposta: " + msg);
             }
             
-            soc.close();
-            return msg;
+          
         } catch (SocketTimeoutException ex) {
+            msg = "er";
             System.out.println("Tempo expirado");
         }
-        return "er";
+        soc.close();
+        return msg;
     }
 
 }

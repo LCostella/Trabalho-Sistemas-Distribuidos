@@ -17,7 +17,16 @@ import java.util.logging.Logger;
 public class ThreadInserirFila extends Thread{
     private Queue<DatagramPacket> fila;
     private static ThreadRetiraFila retirar;
+    private Fila filaa;
 
+    public Fila getFilaa() {
+        return filaa;
+    }
+
+    public void setFilaa(Fila filaa) {
+        this.filaa = filaa;
+    }
+    
     public Queue<DatagramPacket> getFila() {
         return fila;
     }
@@ -26,18 +35,18 @@ public class ThreadInserirFila extends Thread{
         this.fila = fila;
     }
 
-    public ThreadInserirFila(Queue<DatagramPacket> fila, String name) {
+    public ThreadInserirFila(Fila fila, String name) {
         super(name);
-        this.fila = fila;
+        this.filaa = fila;
     }
     
-    public synchronized void run(){
-        if(fila == null){
+    public void run(){
+        if(filaa == null){
             System.out.println("fila é null");
             return;
         }
         //escuta a porta e insere na fila
-        while(fila.isEmpty()){
+        while(true){
             inserir();
         }
     }
@@ -50,11 +59,11 @@ public class ThreadInserirFila extends Thread{
             DatagramPacket pct = new DatagramPacket(data, data.length); // Instancia um DatagramPacket
             System.out.println("Aguarda mensagem");
             soc.receive(pct);
-            fila.add(pct);// recebeu e insere na fila
+            filaa.inserir(pct);// recebeu e insere na fila
             System.out.println("Recebeu mensagem");
             soc.close(); // precisa verificar se pode dar close
-            retirar = new ThreadRetiraFila(fila, "retirar");
-            retirar.start();
+            //retirar = new ThreadRetiraFila(fila, "retirar");
+            //retirar.start();
         } catch (IOException ex) {
             Logger.getLogger(ThreadInserirFila.class.getName()).log(Level.SEVERE, null, ex);
         }
