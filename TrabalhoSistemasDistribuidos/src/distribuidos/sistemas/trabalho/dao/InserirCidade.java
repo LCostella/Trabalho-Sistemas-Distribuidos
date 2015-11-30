@@ -6,6 +6,7 @@
 package distribuidos.sistemas.trabalho.dao;
 
 import distribuidos.sistemas.trabalho.classes.Cidade;
+import distribuidos.sistemas.trabalho.classes.Twitter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,6 +41,8 @@ public class InserirCidade {
             Conexao.close();  
             return false;
         }
+         Twitter t = new Twitter();
+         t.twittar("A cidade" + cidade.getNome() + " foi adicionado com sucesso!!");
         return true;
     }
     

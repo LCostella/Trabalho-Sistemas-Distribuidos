@@ -1,6 +1,7 @@
 package distribuidos.sistemas.trabalho.dao;
 
 import distribuidos.sistemas.trabalho.classes.Contato;
+import distribuidos.sistemas.trabalho.classes.Twitter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,6 +38,8 @@ public class InserirContato {
             Conexao.close();
             return false;
         }  
+         Twitter t = new Twitter();
+         t.twittar("O Contato " + contato.getNome() + " foi adicionado com sucesso!!");
         return true;
     }
     private Integer obterCodigo() throws Exception {

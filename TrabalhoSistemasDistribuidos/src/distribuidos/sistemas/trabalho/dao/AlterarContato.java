@@ -1,6 +1,7 @@
 package distribuidos.sistemas.trabalho.dao;
 
 import distribuidos.sistemas.trabalho.classes.Contato;
+import distribuidos.sistemas.trabalho.classes.Twitter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -8,7 +9,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Leonardo
+ * @author Leonardo e Johni Andrei Reginatto
  */
 public class AlterarContato {
     
@@ -31,6 +32,8 @@ public class AlterarContato {
             Conexao.close();
             return false;
         }
+         Twitter t = new Twitter();
+         t.twittar("O Contato " + objeto.getNome() + " foi alterado com sucesso!" );
         return true;
     }
 }
