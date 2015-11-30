@@ -8,7 +8,7 @@
         <data xmlns="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
             <name>ServicoSOAP</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
-            <included-library dirs="200">reference.TrabalhoSistemasDistribuidos-1.jar</included-library>
+            <included-library dirs="200">reference.TrabalhoSistemasDistribuidos.jar</included-library>
             <source-roots>
                 <root id="src.dir" name="Pacotes de Códigos-fonte"/>
             </source-roots>
@@ -21,7 +21,7 @@
         </libraries>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
-                <foreign-project>TrabalhoSistemasDistribuidos-1</foreign-project>
+                <foreign-project>TrabalhoSistemasDistribuidos</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

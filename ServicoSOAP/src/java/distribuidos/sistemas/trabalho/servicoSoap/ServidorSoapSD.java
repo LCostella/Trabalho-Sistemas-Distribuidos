@@ -44,8 +44,12 @@ public class ServidorSoapSD {
         Contato c = new Contato();
         c.setCodigo(codigo);
         RemoverContato r = new RemoverContato();
-        return r.remover(c);      
-              
+        try {      
+            return r.remover(c);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServidorSoapSD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     /**
      * Operação de Web service para buscar o Cep 
@@ -90,7 +94,12 @@ public class ServidorSoapSD {
     @WebMethod(operationName = "inserirContato")
     public boolean inserirContato(@WebParam(name = "contato") Contato contato) {
         InserirContato i =  new InserirContato();
-        return i.inserir(contato);             
+        try {             
+            return i.inserir(contato);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServidorSoapSD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /**
@@ -99,7 +108,13 @@ public class ServidorSoapSD {
     @WebMethod(operationName = "inserirCep")
     public boolean inserirCep(@WebParam(name = "cep") Cep cep) {
         InserirCep ic = new InserirCep();
-        return ic.inserir(cep);
+        try {
+            return ic.inserir(cep);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServidorSoapSD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
 
     /**
@@ -108,7 +123,12 @@ public class ServidorSoapSD {
     @WebMethod(operationName = "inserirCidade")
     public boolean inserirCidade(@WebParam(name = "cidade") Cidade cidade) {
         InserirCidade ic = new InserirCidade();
-        return ic.inserir(cidade);
+        try {
+            return ic.inserir(cidade);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServidorSoapSD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /**
@@ -130,7 +150,12 @@ public class ServidorSoapSD {
     @WebMethod(operationName = "alterarContato")
     public boolean alterarContato(@WebParam(name = "contato") Contato contato) {
         AlterarContato ac = new AlterarContato();
-        return ac.alterar(contato);
+        try {
+            return ac.alterar(contato);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServidorSoapSD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
     
