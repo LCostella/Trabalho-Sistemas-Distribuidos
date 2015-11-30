@@ -21,32 +21,24 @@ import java.util.logging.Logger;
  */
 public class InserirCidade {
     
-    public boolean inserir(Cidade cidade){
-        try {
-            String sql = "insert into cidade values (?,?,?)";
-            PreparedStatement pst = Conexao.getPreparedStatement(sql);
-            cidade.setCodigo(obterCodigo());
-            pst.setInt(1,cidade.getCodigo());
-            pst.setString(2, cidade.getNome());
-            pst.setString(3, cidade.getEstado());
-            pst.executeUpdate();
-            pst.close();
-            Conexao.close();  
-        } catch (SQLException ex) {
-            Logger.getLogger(InserirCidade.class.getName()).log(Level.SEVERE, null, ex);
-            Conexao.close();  
-            return false;
-        } catch (Exception ex) {
-            Logger.getLogger(InserirCidade.class.getName()).log(Level.SEVERE, null, ex);
-            Conexao.close();  
-            return false;
-        }
+    public boolean inserir(Cidade cidade) throws SQLException{
+
+        String sql = "insert into cidade values (?,?,?)";
+        PreparedStatement pst = Conexao.getPreparedStatement(sql);
+        cidade.setCodigo(obterCodigo());
+        pst.setInt(1,cidade.getCodigo());
+        pst.setString(2, cidade.getNome());
+        pst.setString(3, cidade.getEstado());
+        pst.executeUpdate();
+        pst.close();
+        Conexao.close();  
+
          Twitter t = new Twitter();
          t.twittar("A cidade" + cidade.getNome() + " foi adicionado com sucesso!!");
         return true;
     }
     
-    private Integer obterCodigo() throws Exception {
+    private Integer obterCodigo() throws SQLException {
 
         Integer codigo = null;
         Statement st = Conexao.getStatement();

@@ -17,20 +17,16 @@ import java.util.logging.Logger;
  */
 public class InserirCep {
 
-    public boolean inserir(Cep cep){
+    public boolean inserir(Cep cep) throws SQLException{
         String sql = "insert into cep values (?,?)";
         PreparedStatement pst = Conexao.getPreparedStatement(sql);
-        try {
-            pst.setInt(1, cep.getCep());
-            pst.setInt(2, cep.getCidade().getCodigo());
-            pst.executeUpdate();
-            pst.close();
-            Conexao.close();  
-        } catch (SQLException ex) {
-            Logger.getLogger(InserirCidade.class.getName()).log(Level.SEVERE, null, ex);
-            Conexao.close(); 
-            return false;
-        }
+
+        pst.setInt(1, cep.getCep());
+        pst.setInt(2, cep.getCidade().getCodigo());
+        pst.executeUpdate();
+        pst.close();
+        Conexao.close();  
+
         return true;
     }
 }
