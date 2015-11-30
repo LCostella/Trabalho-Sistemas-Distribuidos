@@ -15,9 +15,7 @@ public class Twitter {
      * @param args
      * Autores Leonardo e Johni Andrei Reginatto
      */
-    public static void main(String args[]) throws Exception {
 
-    }
 
     public void twittar(String mensagem) {
 
