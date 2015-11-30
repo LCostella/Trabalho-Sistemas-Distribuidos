@@ -7,7 +7,10 @@ package receptor.udp;
 
 import distribuidos.sistemas.trabalho.classes.Contato;
 import distribuidos.sistemas.trabalho.dao.RemoverContato;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,8 +26,12 @@ public class Deletar {
             contato.setCodigo((Integer.parseInt(dados.get(i).trim())));
 
             RemoverContato ic = new RemoverContato();
-            if(ic.remover(contato)){
-                return true;
+            try {
+                if(ic.remover(contato)){
+                    return true;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Deletar.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return false;
