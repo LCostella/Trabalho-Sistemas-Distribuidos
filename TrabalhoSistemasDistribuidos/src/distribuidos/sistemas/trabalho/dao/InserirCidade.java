@@ -6,7 +6,6 @@
 package distribuidos.sistemas.trabalho.dao;
 
 import distribuidos.sistemas.trabalho.classes.Cidade;
-import distribuidos.sistemas.trabalho.classes.Twitter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,20 +20,27 @@ import java.util.logging.Logger;
  */
 public class InserirCidade {
     
-    public boolean inserir(Cidade cidade) throws SQLException{
+    public boolean inserir(Cidade cidade){
 
-        String sql = "insert into cidade values (?,?,?)";
-        PreparedStatement pst = Conexao.getPreparedStatement(sql);
-        cidade.setCodigo(obterCodigo());
-        pst.setInt(1,cidade.getCodigo());
-        pst.setString(2, cidade.getNome());
-        pst.setString(3, cidade.getEstado());
-        pst.executeUpdate();
-        pst.close();
-        Conexao.close();  
-
-         Twitter t = new Twitter();
-         t.twittar("A cidade" + cidade.getNome() + " foi adicionado com sucesso!!");
+         try {
+            String sql = "insert into cidade values (?,?,?)";
+            PreparedStatement pst = Conexao.getPreparedStatement(sql);
+            cidade.setCodigo(obterCodigo());
+            pst.setInt(1,cidade.getCodigo());
+            pst.setString(2, cidade.getNome());
+            pst.setString(3, cidade.getEstado());
+            pst.executeUpdate();
+            pst.close();
+            Conexao.close();  
+        } catch (SQLException ex) {
+            Logger.getLogger(InserirCidade.class.getName()).log(Level.SEVERE, null, ex);
+            Conexao.close();  
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(InserirCidade.class.getName()).log(Level.SEVERE, null, ex);
+            Conexao.close();  
+            return false;
+        }
         return true;
     }
     

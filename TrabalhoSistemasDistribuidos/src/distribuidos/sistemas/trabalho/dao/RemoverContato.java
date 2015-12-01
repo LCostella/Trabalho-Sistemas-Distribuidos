@@ -1,7 +1,6 @@
 package distribuidos.sistemas.trabalho.dao;
 
 import distribuidos.sistemas.trabalho.classes.Contato;
-import distribuidos.sistemas.trabalho.classes.Twitter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -12,17 +11,19 @@ import java.util.logging.Logger;
  * @author felip
  */
 public class RemoverContato {
-    public boolean remover(Contato objeto) throws SQLException {
-
-        String sql = "DELETE FROM contato where codigo=?";
-        PreparedStatement ps = Conexao.getPreparedStatement(sql);
-        ps.setInt(1, objeto.getCodigo());
-        ps.executeUpdate();
-        ps.close();
-        Conexao.close();
-
-        Twitter t = new Twitter();
-        t.twittar("O Contato " + objeto.getNome() + " foi removido com sucesso!!");
+    public boolean remover(Contato objeto) {
+        try {
+            String sql = "DELETE FROM contato where codigo=?";
+            PreparedStatement ps = Conexao.getPreparedStatement(sql);
+            ps.setInt(1, objeto.getCodigo());
+            ps.executeUpdate();
+            ps.close();
+            Conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(RemoverContato.class.getName()).log(Level.SEVERE, null, ex);
+            Conexao.close();
+            return false;
+        }
         return true;
     }
 }
