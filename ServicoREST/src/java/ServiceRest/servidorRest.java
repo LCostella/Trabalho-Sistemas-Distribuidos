@@ -87,11 +87,7 @@ public class servidorRest {
         c.setCodigo(codigo);
         RemoverContato r = new RemoverContato();
         boolean k = false;
-        try {
-            k = r.remover(c);
-        } catch (SQLException ex) {
-            Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        k = r.remover(c);
         if (k) {
             return "OK";
         } else {
@@ -212,13 +208,8 @@ public class servidorRest {
             c.setCep(cep);
             c.setCidade(cidade);
             InserirCep ic = new InserirCep();
-            boolean k = false;
-        try {
+            boolean k;
             k = ic.inserir(c);
-        } catch (SQLException ex) {
-            //Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
-            k = false;
-        }
             if(k){
              return "SUCCESS! NEW CEP IS SAVED"; 
             }
@@ -248,13 +239,8 @@ public class servidorRest {
          contact.setEndereco(endereco);
          contact.setEmailAlternativo(alternaEmail);
          
-         boolean k = false;
-        try {
-            k = ic.inserir(contact);
-        } catch (SQLException ex) {
-            //Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
-            k=false;
-        }
+         boolean k;
+         k = ic.inserir(contact);
          if(k){
              return"SUCCESS! Contact Added Successfully...";
              
@@ -283,13 +269,8 @@ public class servidorRest {
         contact.setEndereco(endereco);
         contact.setEmailAlternativo(alternaEmail);
 
-       boolean k= false;
-        try {
-            k =  ac.alterar(contact);
-        } catch (SQLException ex) {
-            //Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
-            k=false;
-        }
+       boolean k;
+       k =  ac.alterar(contact);
        if(k){
             return"SUCCESS! Contact Alter...";
 
@@ -306,12 +287,7 @@ public class servidorRest {
        c.setCodigo(codigo);
        RemoverContato r = new RemoverContato();
        boolean k = false;
-        try {
-            k = r.remover(c);
-        } catch (SQLException ex) {
-            //Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
-            k=false;
-        }
+       k = r.remover(c);
        if(k)
            return "SUCCESS! Contact Is Deleted...";
        else 
@@ -327,13 +303,8 @@ public class servidorRest {
      public String inserirCidade(Cidade cidade){
          Cidade c = new Cidade();
          InserirCidade ic = new InserirCidade();
-         boolean k = false;
-        try {
-            k = ic.inserir(cidade);
-        } catch (SQLException ex) {
-            //Logger.getLogger(servidorRest.class.getName()).log(Level.SEVERE, null, ex);
-            k=false;
-        }
+         boolean k;
+         k = ic.inserir(cidade);
          if(k){
              return"OK";
              
