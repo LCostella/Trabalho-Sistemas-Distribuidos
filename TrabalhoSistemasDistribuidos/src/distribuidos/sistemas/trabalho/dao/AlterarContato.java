@@ -1,6 +1,7 @@
 package distribuidos.sistemas.trabalho.dao;
 
 import distribuidos.sistemas.trabalho.classes.Contato;
+import distribuidos.sistemas.trabalho.classes.TwitterConsumer;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -31,6 +32,8 @@ public class AlterarContato {
             Conexao.close();
             return false;
         }
+         TwitterConsumer t = new TwitterConsumer();
+        t.twittar("O Contato " + objeto.getNome() + " foi adicionado com sucesso!!");
          return true;
     }
 }
