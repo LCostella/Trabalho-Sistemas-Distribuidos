@@ -48,12 +48,8 @@ public class Alterar {
             contato.setEmailAlternativo(dados.get(i).trim());
 
             AlterarContato ic = new AlterarContato();
-            try {
-                if(ic.alterar(contato)){
-                    return true;
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Alterar.class.getName()).log(Level.SEVERE, null, ex);
+            if(ic.alterar(contato)){
+                return true;
             }
         }
  

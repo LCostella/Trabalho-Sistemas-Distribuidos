@@ -42,13 +42,9 @@ public class Inserir {
             contato.setEmailAlternativo(dados.get(i).trim());
             
             InserirContato ic = new InserirContato();
-            try {
-                if(ic.inserir(contato)){
-                    //System.out.println("Cadastrado com sucesso!");
-                    return true;
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Inserir.class.getName()).log(Level.SEVERE, null, ex);
+            if(ic.inserir(contato)){
+                //System.out.println("Cadastrado com sucesso!");
+                return true;
             }
         }
  
