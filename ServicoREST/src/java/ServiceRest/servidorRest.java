@@ -218,13 +218,13 @@ public class servidorRest {
             }
         }
         
-     @GET
+     @POST
      @Consumes(MediaType.APPLICATION_JSON)
      @Produces("application/json")
      @Path("/inserirContato")
      public String inserirContato(@QueryParam("nome") String nome, @QueryParam("email") String email,
              @QueryParam("cep") Integer cep, @QueryParam("complemento") String complemento,
-              @QueryParam("alternaEmail") String alternaEmail ){
+             @QueryParam("endereco") String endereco,@QueryParam("alternaEmail") String alternaEmail ){
 
          Contato contact = new Contato();
          Cep c = new Cep();
@@ -234,9 +234,8 @@ public class servidorRest {
          contact.setEmail(email);
          c.setCep(cep);
          contact.setCep(c);
-         //contact.setCodigo(codigo);
          contact.setComplemento(complemento);
-         //contact.setEndereco(endereco);
+         contact.setEndereco(endereco);
          contact.setEmailAlternativo(alternaEmail);
          
          boolean k;
