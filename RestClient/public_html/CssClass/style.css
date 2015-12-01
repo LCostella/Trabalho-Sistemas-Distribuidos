@@ -5,6 +5,13 @@
   position: fixed;
 }
 
+.validation {
+  display: inline-block;
+  width: 25%;
+  text-align: right;
+  margin: 10px;
+}
+
 .register {
   width: 500px;
   margin: 10px auto;
@@ -32,7 +39,7 @@
   text-align: right;
   margin: 10px;
 }
-.register input[type=text], .register input[type=password] {
+.register input[type=text], .register input[type=password], .register input[type=email] {
   width: 65%;
   font-family: "Lucida Grande","Lucida Sans Unicode",Tahoma,Sans-Serif;
   padding: 5px;
@@ -40,7 +47,7 @@
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.07);
 }
-.register input[type=text]:focus, .register input[type=password]:focus {
+.register input[type=text]:focus, .register input[type=email]:focus, .register input[type=password]:focus {
   background: #FFFFFF;
 }
 .register .button {
