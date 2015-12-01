@@ -90,3 +90,4 @@ function SwitchableGridController($scope, $http){
             });
         };
 }
+
