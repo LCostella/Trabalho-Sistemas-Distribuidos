@@ -26,7 +26,7 @@ public class RemoverContato {
             return false;
         }
         TwitterConsumer t = new TwitterConsumer();
-        t.twittar("O Contato " + objeto.getNome() + " foi removido com sucesso!!");
+        t.twittar("O Contato " + objeto.getCodigo()+ " foi removido com sucesso!!");
         return true;
     }
 }
